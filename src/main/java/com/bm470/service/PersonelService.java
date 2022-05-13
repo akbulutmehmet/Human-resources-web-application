@@ -29,6 +29,14 @@ public class PersonelService {
     }
     @Transactional(readOnly = false)
     public Boolean personelKaydet(Long personelId,String personelAd, String personelSoyad, long personelTc, long personelMaas, String isBaslangicTarihi, Gorev gorev,String personelCinsiyet) {
+        Personel personel = null;
+        if(personelId != null) {
+            personel = personelLoad(personelId);
+        }
+        else {
+            personel = new Personel();
+        }
+
         Date personelIsBaslangicTarihi = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -37,13 +45,6 @@ public class PersonelService {
             e.printStackTrace();
         }
 
-        Personel personel = null;
-        if(personelId != null) {
-            personel = personelLoad(personelId);
-        }
-        else {
-            personel = new Personel();
-        }
         personel.setPersonelAd(personelAd);
         personel.setPersonelSoyad(personelSoyad);
         personel.setPersonelTc(personelTc);
@@ -65,5 +66,11 @@ public class PersonelService {
         Personel personel = personelLoad(personelId);
         Boolean exist = mainDAO.removeObject(personel);
         return exist;
+    }
+
+    public List<Personel> personelGetir(long gorevId) {
+
+        List<Personel> personelList = personelDAO.personelGetir(gorevId);
+        return personelList;
     }
 }

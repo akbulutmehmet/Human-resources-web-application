@@ -23,7 +23,7 @@ public class AppExceptionHandler {
         return "404";
     }
 
-    @ExceptionHandler(value = {ServletException.class,ClassNotFoundException.class, SQLException.class,IOException.class
+    @ExceptionHandler(value = {NullPointerException.class,ServletException.class,ClassNotFoundException.class, SQLException.class,IOException.class
     , NoResultException.class
     })
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)

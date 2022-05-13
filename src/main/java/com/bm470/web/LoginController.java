@@ -32,6 +32,7 @@ public class LoginController {
     @GetMapping("/logout")
     public void logout (HttpServletRequest request,HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
+        session.invalidate();
         response.sendRedirect(request.getContextPath());
     }
     @PostMapping(value = "/loginKontrol")

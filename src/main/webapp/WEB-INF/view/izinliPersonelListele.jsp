@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="includes/header.jsp"%>
 
@@ -48,19 +49,25 @@
                               </tr>
                               </thead>
                               <tbody>
-                              <tr>
-                                  <td>#1</td>
-                                  <td>Mehmet</td>
-                                  <td>Akbulut</td>
-                                  <td>Boş İşler</td>
-                                  <td>Boş İşler Müdürü</th>
-                                  <th>14.06.2022</th>
-                                  <th>30.06.2022</th>
-                                  <td>
-                                      <a href="${pageContext.request.contextPath}/izinliPersonelGuncelle/${"1"}" class="btn btn-md btn-info mb-1" data-id="#1">GÜNCELLE</a>
-                                      <button class="btn btn-md btn-danger mt-1" data-id="#1">SİL</button>
-                                  </td>
-                              </tr>
+                              <c:forEach var="izinliPersonel" items="${izinliPersonelList}" >
+                                  <tr>
+                                      <td><c:out value=" ${izinliPersonel.izinliPersonelId}"></c:out></td>
+                                      <td><c:out value=" ${izinliPersonel.personel.personelAd}"></c:out></td>
+                                      <td><c:out value=" ${izinliPersonel.personel.personelSoyad}"></c:out></td>
+                                      <td><c:out value=" ${izinliPersonel.personel.gorev.departman.departmanAdi}"></c:out></td>
+                                      <td><c:out value=" ${izinliPersonel.personel.gorev.gorevAdi}"></c:out></td>
+                                      <td><c:out value=" ${izinliPersonel.izinBaslangicTarihi}"></c:out></td>
+                                      <td><c:out value=" ${izinliPersonel.izinBitisTarihi}"></c:out></td>
+
+                                      <td>
+                                          <a href="${pageContext.request.contextPath}/izinliPersonelGuncelle/${izinliPersonel.izinliPersonelId}" class="btn  btn-info" data-id="#1">GÜNCELLE</a>
+                                          <button class="btn  btn-blok btn-danger btnIzinliPersonelSil" type="button"  data-id="${izinliPersonel.izinliPersonelId}">SİL</button>
+                                      </td>
+                                  </tr>
+
+
+                              </c:forEach>
+
                               </tbody>
                           </table>
                       </div>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="includes/header.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -27,28 +28,38 @@
            <div class="card-body">
              <form action="">
                <div class="form-gruop mt-1">
-                 <label for="departman">Personel Departman Seçiniz</label>
-                 <select name="departman" id="departman" class="form-control">
-                   <option value="1">Yazılım</option>
-                   <option value="2">Temizlik</option>
+                 <label for="personelDepartman">Personel Departman Seçiniz</label>
+                 <select name="personelDepartman" id="personelDepartman" class="form-control"  data-url="${pageContext.request.contextPath}" onchange="gorevGetir(this.value)">
+                   <option value="0" selected id="bosDepartman">LÜTFEN DEPARTMAN SEÇİMİ YAPINIZ</option>
+                   <c:forEach var="departman" items="${departmanList}" >
+
+                       <option value="${departman.departmanId}">${departman.departmanAdi}</option>
+
+                   </c:forEach>
                  </select>
                </div>
                <div class="form-gruop mt-1">
-                 <label for="personel_id">Personel Seçiniz</label>
-                 <select name="personel_id" id="personel_id" class="form-control">
-                   <option value="1">Mehmet Akbulut</option>
+                 <label for="personelGorevId">Personel Görev Seçiniz</label>
+                 <select name="personelGorevId" id="personelGorevId" class="form-control" data-url="${pageContext.request.contextPath}" onchange="personelGetir(this.value)">
+                      <option value="0" id="bosGorev" selected>LÜTFEN GÖREV SEÇİMİ YAPINIZ</option>
                  </select>
                </div>
                <div class="form-gruop mt-1">
-                 <label for="izinbaslangic">Personel İzin Başlangıç Tarihi</label>
-                 <input type="date" name="izinbaslangic" id="izinbaslangic" class="form-control">
+                 <label for="personelId">Personel Seçiniz</label>
+                 <select name="personelId" id="personelId" class="form-control">
+                   <option value="0" id="bosPersonel" selected>LÜTFEN PERSONEL SEÇİMİ YAPINIZ</option>
+                 </select>
                </div>
                <div class="form-gruop mt-1">
-                 <label for="izinbitis">Personel İzin Bitiş Tarihi</label>
-                 <input type="date" name="izinbitis" id="izinbitis" class="form-control">
+                 <label for="izinBaslangicTarihi">Personel İzin Başlangıç Tarihi</label>
+                 <input type="date" name="izinBaslangicTarihi" id="izinBaslangicTarihi" class="form-control">
                </div>
                <div class="form-gruop mt-1">
-                 <button class="btn btn-outline-success">EKLE</button>
+                 <label for="izinBitisTarihi">Personel İzin Bitiş Tarihi</label>
+                 <input type="date" name="izinBitisTarihi" id="izinBitisTarihi" class="form-control">
+               </div>
+               <div class="form-gruop mt-1">
+                 <button class="btn btn-outline-success" id="btnIzinliPersonelEkle" type="button">EKLE</button>
                </div>
              </form>
            </div>

@@ -23,7 +23,7 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <button class="btn  btn-outline-danger"><i class="fa fa-sign-out-alt"></i>ÇIKIŞ YAP</button>
+      <a href="${pageContext.request.contextPath}/logout" class="btn  btn-outline-danger"><i class="fa fa-sign-out-alt"></i>ÇIKIŞ YAP</a>
 
     </ul>
   </nav>

@@ -1,10 +1,7 @@
 package com.bm470.config;
 
 
-import com.bm470.model.Departman;
-import com.bm470.model.Gorev;
-import com.bm470.model.InsanKaynaklari;
-import com.bm470.model.Personel;
+import com.bm470.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -46,7 +43,7 @@ public class AppConfig {
         props.put(C3P0_MAX_STATEMENTS, env.getProperty("hibernate.c3p0.max_statements"));
         props.put(C3P0_CONFIG_PREFIX + ".initialPoolSize", env.getProperty("hibernate.c3p0.initialPoolSize"));
         factoryBean.setHibernateProperties(props);
-        factoryBean.setAnnotatedClasses(InsanKaynaklari.class, Departman.class, Gorev.class, Personel.class);
+        factoryBean.setAnnotatedClasses(InsanKaynaklari.class, Departman.class, Gorev.class, Personel.class, IzinliPersonel.class);
         return factoryBean;
     }
 

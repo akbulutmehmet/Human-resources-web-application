@@ -68,7 +68,7 @@
                <div class="form-gruop mt-1">
                  <label for="personelGorevId">Personel Görev Seçiniz</label>
                  <select name="personelGorevId" id="personelGorevId" class="form-control">
-                   <option value="0" selected >Lütfen Departman Seçimi Yapınız</option>
+                   <option value="0" selected >Lütfen Görev Seçimi Yapınız</option>
                  </select>
                </div>
                <div class="form-gruop mt-1">

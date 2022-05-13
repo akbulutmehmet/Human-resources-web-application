@@ -36,7 +36,7 @@ public class PersonelController {
     }
     @PostMapping(value = "/personelKaydet")
     public @ResponseBody String personelKaydet (
-            @RequestParam(value = "personelId",required = false) long personelId,
+            @RequestParam(value = "personelId",required = false) Long personelId,
             @RequestParam("personelAd") String personelAd,
             @RequestParam("personelSoyad") String personelSoyad,
             @RequestParam("personelTc") long personelTc,
@@ -50,7 +50,7 @@ public class PersonelController {
         Boolean exist = personelService.personelKaydet(personelId,personelAd,personelSoyad,personelTc,personelMaas,isBaslangicTarihi,gorev,personelCinsiyet);
         if(exist) {
             jsonObject.put("icon","success");
-            jsonObject.put("title","Silme işlemi başarılı");
+            jsonObject.put("title","Personel Ekleme işlemi başarılı");
         }
         else {
             jsonObject.put("icon","error");
@@ -94,6 +94,18 @@ public class PersonelController {
         return jsonObject.toString();
 
     }
+    @PostMapping(value = "/personelGetir")
+    public @ResponseBody String personelGetir (@RequestParam("gorevId") long gorevId) {
+        Gorev gorev = gorevService.gorevLoad(gorevId);
+        JSONObject jsonObject = new JSONObject();
+        List<Personel> personelList = personelService.personelGetir(gorevId);
 
+        String personeller = "";
+        for (Personel personel : personelList) {
+            personeller += "<option value='" + personel.getPersonelId() + "'>" + personel.getPersonelAdSoyad() + "</option>";
+        }
+        jsonObject.put("personeller",personeller);
+        return jsonObject.toString();
+    }
 
 }

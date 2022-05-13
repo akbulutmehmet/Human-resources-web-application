@@ -13,8 +13,8 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        Object admin = session.getAttribute("admin");
-        if (admin == null){
+        Object insanKaynaklari = session.getAttribute("insanKaynaklari");
+        if (insanKaynaklari == null){
             /*
             * Giriş yapılmamış is 404 sayfasını kullanıcıya gösteriyor.
             *

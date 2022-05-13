@@ -20,6 +20,9 @@ public class Personel implements Serializable {
     @Column(name="personel_soyad",nullable = false)
     private String personelSoyad;
 
+    @Transient
+    private String personelAdSoyad;
+
     @Column(name="personel_tc",nullable = false)
     private Long personelTc;
 
@@ -41,6 +44,13 @@ public class Personel implements Serializable {
     private Gorev gorev;
 
 
+    public String getPersonelAdSoyad() {
+        return getPersonelAd() + " " + getPersonelSoyad();
+    }
+
+    public void setPersonelAdSoyad(String personelAdSoyad) {
+        this.personelAdSoyad = personelAdSoyad;
+    }
 
     public void setPersonelId(Long id) {
         this.personelId = id;

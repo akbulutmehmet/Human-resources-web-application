@@ -467,8 +467,132 @@ $(".btnPersonelSil").click(function () {
 
 });
 
+$("#btnIzinliPersonelEkle").click(function () {
+    let url = "izinliPersonelKaydet";
+    let personelId = $("#personelId").val();
+    let izinBaslangicTarihi = $("#izinBaslangicTarihi").val();
+    let izinBitisTarihi = $("#izinBitisTarihi").val();
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+            personelId : personelId,
+            izinBaslangicTarihi : izinBaslangicTarihi,
+            izinBitisTarihi : izinBitisTarihi,
+
+        },
+        success: function (response) {
+            Swal.fire({
+                position: 'center-center',
+                icon: response.icon,
+                title: response.title,
+                showConfirmButton: false,
+                timer: 10000
+            });
+            setTimeout(function () {
+
+            },3000);
+            if(response.exist) {
+
+                window.location.href = "izinliPersonelListele";
+
+            }
+        },
+        dataType: "json"
+    });
+
+
+
+});
+
+$(".btnIzinliPersonelSil").click(function () {
+    let data_id = $(this).data("id");
+    let url = "izinliPersonelSil";
+    Swal.fire({
+        title: 'Silmek İstediğinize Emin Misiniz?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Sil',
+        denyButtonText: `İptal`,
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    izinliPersonelId : data_id
+                },
+                success: function (response) {
+                    Swal.fire({
+                        position: 'center-center',
+                        icon: response.icon,
+                        title: response.title,
+                        showConfirmButton: false,
+                        timer: 10000
+                    });
+
+                    if(response.exist) {
+                        window.location.href = "izinliPersonelListele";
+                    }
+                },
+                dataType: "json"
+            });
+        } else if (result.isDenied) {
+            Swal.fire('Silme işlemi iptal edildi.', '', 'success')
+        }
+    })
+
+
+});
+
+$("#btnIzinliPersonelGuncelle").click(function () {
+
+    let url = $("#dataUrl").val();
+    let redirectUrl = $("#redirectUrl").val();
+    let personelId = $("#personelId").val();
+    let izinBaslangicTarihi = $("#izinBaslangicTarihi").val();
+    let izinBitisTarihi = $("#izinBitisTarihi").val();
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+            personelId : personelId,
+            izinBaslangicTarihi : izinBaslangicTarihi,
+            izinBitisTarihi : izinBitisTarihi
+
+        },
+        success: function (response) {
+            Swal.fire({
+                position: 'center-center',
+                icon: response.icon,
+                title: response.title,
+                showConfirmButton: false,
+                timer: 10000
+            });
+            setTimeout(function () {
+
+            },3000);
+            if(response.exist) {
+
+                window.location.href = redirectUrl  ;
+
+            }
+        },
+        dataType: "json"
+    });
+
+
+
+});
+
+
 function gorevGetir (val) {
     let url = $("#personelDepartman").data("url");
+    $("#bosDepartman").remove();
+    $("#personelId").empty();
     url = url + "/gorevGetir";
     $.ajax({
         type: "POST",
@@ -483,4 +607,20 @@ function gorevGetir (val) {
         dataType: "json"
     });
 }
-
+function personelGetir (val) {
+    let url = $("#personelGorevId").data("url");
+    $("#bosPersonel").remove();
+    url = url + "/personelGetir";
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+            gorevId : val
+        },
+        success: function (response) {
+            $("#personelId").empty();
+            $("#personelId").html(response.personeller);
+        },
+        dataType: "json"
+    });
+}

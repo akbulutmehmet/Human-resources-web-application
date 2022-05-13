@@ -26,29 +26,20 @@
                     <div class="card">
                         <div class="card-body">
                             <form action="">
+                                <input type="hidden" name="izinliPersonelId" id="izinliPersonelId" value="${izinliPersonel.izinliPersonelId}">
+                                <input type="hidden" name="personelId" id="personelId" value="${izinliPersonel.personel.personelId}">
+                                <input type="hidden" name="dataUrl" id="dataUrl" value="${pageContext.request.contextPath}/izinliPersonelKaydet">
+                                <input type="hidden" name="redirectUrl" id="redirectUrl" value="${pageContext.request.contextPath}/izinliPersonelListele">
                                 <div class="form-gruop mt-1">
-                                    <label for="departman">Personel Departman Seçiniz</label>
-                                    <select name="departman" id="departman" class="form-control">
-                                        <option value="1">Yazılım</option>
-                                        <option value="2">Temizlik</option>
-                                    </select>
+                                    <label for="izinBaslangicTarihi">Personel İzin Başlangıç Tarihi</label>
+                                    <input type="date" name="izinBaslangicTarihi" id="izinBaslangicTarihi" class="form-control" value="${izinliPersonel.izinBaslangicTarihi}">
                                 </div>
                                 <div class="form-gruop mt-1">
-                                    <label for="personel_id">Personel Seçiniz</label>
-                                    <select name="personel_id" id="personel_id" class="form-control">
-                                        <option value="1">Mehmet Akbulut</option>
-                                    </select>
+                                    <label for="izinBitisTarihi">Personel İzin Bitiş Tarihi</label>
+                                    <input type="date" name="izinBitisTarihi" id="izinBitisTarihi" class="form-control" value="${izinliPersonel.izinBaslangicTarihi}">
                                 </div>
                                 <div class="form-gruop mt-1">
-                                    <label for="izinbaslangic">Personel İzin Başlangıç Tarihi</label>
-                                    <input type="date" name="izinbaslangic" id="izinbaslangic" class="form-control">
-                                </div>
-                                <div class="form-gruop mt-1">
-                                    <label for="izinbitis">Personel İzin Bitiş Tarihi</label>
-                                    <input type="date" name="izinbitis" id="izinbitis" class="form-control">
-                                </div>
-                                <div class="form-gruop mt-1">
-                                    <button class="btn btn-outline-success">EKLE</button>
+                                    <button class="btn btn-outline-success" type="button" id="btnIzinliPersonelGuncelle">GÜNCELLE</button>
                                 </div>
                             </form>
                         </div>
