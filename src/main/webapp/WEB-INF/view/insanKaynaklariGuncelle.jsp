@@ -25,7 +25,7 @@
         <div class="col-md-8">
           <div class="card">
            <div class="card-body">
-             <form action="">
+             <form action="javascript:void(0)">
                <input type="hidden" name="ikId" id="ikId" value="${insanKaynaklari.ikId}">
                <input type="hidden" name="ikId" id="dataUrl" value="${pageContext.request.contextPath}/insanKaynaklariUpdate">
                <input type="hidden" name="ikId" id="redirectUrl" value="${pageContext.request.contextPath}/insanKaynaklariListele">

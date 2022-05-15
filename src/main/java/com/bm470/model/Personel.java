@@ -23,7 +23,7 @@ public class Personel implements Serializable {
     @Transient
     private String personelAdSoyad;
 
-    @Column(name="personel_tc",nullable = false)
+    @Column(name="personel_tc",nullable = false,unique = true)
     private Long personelTc;
 
     @Column(name="personel_cinsiyet",nullable = false)
@@ -37,12 +37,20 @@ public class Personel implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date isBaslangicTarihi;
 
-
+    @Column(name = "personel_izin_hakki",nullable = true)
+    private Long personelIzinHakki;
 
     @ManyToOne
     @JoinColumn(name = "gorev_id",referencedColumnName = "gorev_id")
     private Gorev gorev;
 
+    public void setPersonelIzinHakki(Long personelIzinHakki) {
+        this.personelIzinHakki = personelIzinHakki;
+    }
+
+    public Long getPersonelIzinHakki() {
+        return personelIzinHakki;
+    }
 
     public String getPersonelAdSoyad() {
         return getPersonelAd() + " " + getPersonelSoyad();

@@ -25,7 +25,7 @@
         <div class="col-md-8">
           <div class="card">
            <div class="card-body">
-             <form action="">
+             <form action="javascript:void(0)">
                <div class="form-gruop mb-1">
                  <label for="departmanAdi">Departman İsmini Giriniz</label>
                  <input class="form-control" type="text" name="departmanAdi" id="departmanAdi"  placeholder="Departman İsmini Giriniz">

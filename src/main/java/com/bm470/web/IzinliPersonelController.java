@@ -59,7 +59,14 @@ public class IzinliPersonelController {
             @RequestParam("personelId") Long personelId) {
 
         JSONObject jsonObject = new JSONObject();
-
+        if(izinBaslangicTarihi.equals("") || izinBitisTarihi.equals("") || personelId.equals(0L))
+        {
+            jsonObject.put("success",true);
+            jsonObject.put("exist",false);
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Zorunlu alanları doldurunuz");
+            return jsonObject.toString();
+        }
         Boolean exist = izinliPersonelService.izinliPersonelKaydet(izinliPersonelId,izinBaslangicTarihi,izinBitisTarihi,personelId);
         if(exist) {
             jsonObject.put("icon","success");

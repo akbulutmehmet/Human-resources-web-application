@@ -28,18 +28,7 @@ public class Departman implements Serializable{
         this.gorevList = gorevList;
     }
 
-    /*
-            @OneToMany(mappedBy = "personel", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-            private List<Personel> personelList;
 
-            public List<Personel> getPersonelList() {
-                return personelList;
-            }
-            public void setPersonelList(List<Personel> personelList) {
-                personelList = personelList;
-            }
-
-         */
     public Long getDepartmanId() {
         return departmanId;
     }

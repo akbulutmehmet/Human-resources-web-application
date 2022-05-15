@@ -22,7 +22,7 @@ public class InsanKaynaklariDAO {
      private Session getCurrentSession () {
          return sessionFactory.getCurrentSession();
      }
-    public InsanKaynaklari loginKontrol(String email, String sifre) {
+    public InsanKaynaklari loginKontrol(String email, String sifre)  {
         Session currentSession = getCurrentSession();
         CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
         CriteriaQuery<InsanKaynaklari> criteriaQuery = criteriaBuilder.createQuery(InsanKaynaklari.class);
@@ -33,7 +33,13 @@ public class InsanKaynaklariDAO {
         criteriaQuery.select(root).where(criteriaBuilder.and(predicateIkEposta,predicateIkSifre));
 
         Query<InsanKaynaklari> query = currentSession.createQuery(criteriaQuery);
-        InsanKaynaklari insanKaynaklari = query.getSingleResult();
+        InsanKaynaklari insanKaynaklari = null;
+        try {
+            insanKaynaklari = query.getSingleResult();
+        }
+        catch (Exception e) {
+            return insanKaynaklari;
+        }
         return insanKaynaklari;
     }
 

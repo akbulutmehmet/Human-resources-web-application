@@ -30,8 +30,18 @@ public class DepartmanController {
     }
     @PostMapping(value = "/departmanKaydet")
     public @ResponseBody String departmanKaydet (@RequestParam ("departmanAdi") String departmanAdi) {
-        Boolean exist = departmanService.departmanKaydet(departmanAdi);
         JSONObject jsonObject = new JSONObject();
+        /**
+         * İstek parametrelerinin boş kontrolü
+         */
+        if(departmanAdi.equals("")) {
+            jsonObject.put("success",true);
+            jsonObject.put("exist",false);
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Zorunlu alanları doldurunuz");
+            return jsonObject.toString();
+        }
+        Boolean exist = departmanService.departmanKaydet(departmanAdi);
         if(exist) {
             jsonObject.put("icon","success");
             jsonObject.put("title","Departman Başarıyla Kaydedildi");
@@ -53,10 +63,21 @@ public class DepartmanController {
         return "departmanGuncelle";
     }
     @PostMapping(value = "/departmanUpdate")
-    public @ResponseBody String departmanUpdate (@RequestParam("departmanId") long departmanId,
+    public @ResponseBody String departmanUpdate (@RequestParam("departmanId") Long departmanId,
                                                  @RequestParam("departmanAdi") String departmanAdi) {
-        Boolean exist = departmanService.departmanUpdate(departmanId,departmanAdi);
         JSONObject jsonObject = new JSONObject();
+        /**
+         * İstek parametrelerinin boş kontrolü
+         */
+        if(departmanAdi.equals("") || departmanId.equals("")) {
+            jsonObject.put("success",true);
+            jsonObject.put("exist",false);
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Zorunlu alanları doldurunuz");
+            return jsonObject.toString();
+        }
+        Boolean exist = departmanService.departmanUpdate(departmanId,departmanAdi);
+
         if(exist) {
             jsonObject.put("icon","success");
             jsonObject.put("title","Departman Başarıyla Güncellendi");

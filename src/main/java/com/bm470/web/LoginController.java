@@ -17,14 +17,14 @@ import java.io.IOException;
 public class LoginController {
 
     @Autowired
-     private InsanKaynaklariService loginService;
+     private InsanKaynaklariService insanKaynaklariService;
 
     @GetMapping(value = "/")
     public String login(HttpServletRequest request,HttpServletResponse response) throws Exception{
         HttpSession session = request.getSession();
-        Object admin = session.getAttribute("admin");
-        if(admin != null) {
-            response.sendRedirect("/personelListele");
+        Object insanKaynaklari = session.getAttribute("insanKaynaklari");
+        if(insanKaynaklari != null) {
+            response.sendRedirect(request.getContextPath() + "/personelListele");
         }
         return "login";
 
@@ -36,15 +36,25 @@ public class LoginController {
         response.sendRedirect(request.getContextPath());
     }
     @PostMapping(value = "/loginKontrol")
-    public @ResponseBody  String loginKontrol(@RequestParam String email, @RequestParam String password, HttpServletRequest req, HttpServletResponse res) throws Exception{
-
-        InsanKaynaklari insanKaynaklari = loginService.loginKontrol(email,password);
+    public @ResponseBody  String loginKontrol(@RequestParam("email") String email, @RequestParam("password") String password, HttpServletRequest req, HttpServletResponse res) throws Exception{
+        JSONObject jsonObject = new JSONObject();
+        /**
+         * İstek parametrelerinin boş kontrolü
+         */
+        if (email.equals("") || password.equals("")) {
+            jsonObject.put("success",true);
+            jsonObject.put("exist",false);
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Zorunlu alanları doldurunuz");
+            return jsonObject.toString();
+        }
+        InsanKaynaklari insanKaynaklari = insanKaynaklariService.loginKontrol(email,password);
         Boolean exists = false;
         if(insanKaynaklari != null) {
             exists = true;
         }
 
-        JSONObject jsonObject = new JSONObject();
+
         if(exists){
             HttpSession session = req.getSession();
             session.setAttribute("insanKaynaklari",insanKaynaklari);

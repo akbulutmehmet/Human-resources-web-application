@@ -25,7 +25,7 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <form action="">
+                            <form action="javascript:void(0)">
                                 <input type="hidden" name="izinliPersonelId" id="izinliPersonelId" value="${izinliPersonel.izinliPersonelId}">
                                 <input type="hidden" name="personelId" id="personelId" value="${izinliPersonel.personel.personelId}">
                                 <input type="hidden" name="dataUrl" id="dataUrl" value="${pageContext.request.contextPath}/izinliPersonelKaydet">

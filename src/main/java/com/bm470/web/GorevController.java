@@ -35,12 +35,19 @@ public class GorevController {
         return "gorevEkle";
     }
     @PostMapping(value = "/gorevKaydet")
-    public @ResponseBody String gorevKaydet (@RequestParam("departmanId") long departmanId,
+    public @ResponseBody String gorevKaydet (@RequestParam("departmanId") Long departmanId,
                                              @RequestParam("gorevAdi") String gorevAdi) {
-        Departman departman = departmanService.departmanLoad(departmanId);
-
-        Boolean exist = gorevService.gorevKaydet(departman,gorevAdi);
         JSONObject jsonObject = new JSONObject();
+        if(departmanId.equals(0L) || gorevAdi.equals("")) {
+            jsonObject.put("success",true);
+            jsonObject.put("exist",false);
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Zorunlu alanları doldurunuz");
+            return jsonObject.toString();
+        }
+        Departman departman = departmanService.departmanLoad(departmanId);
+        Boolean exist = gorevService.gorevKaydet(departman,gorevAdi);
+
         if(exist) {
             jsonObject.put("icon","success");
             jsonObject.put("title","Silme işlemi başarılı");
@@ -67,13 +74,20 @@ public class GorevController {
     }
 
     @PostMapping(value = "/gorevUpdate")
-    public @ResponseBody String gorevUpdate (@RequestParam("departmanId") long departmanId,
-                                                 @RequestParam("gorevId") long gorevId,
+    public @ResponseBody String gorevUpdate (@RequestParam("departmanId") Long departmanId,
+                                                 @RequestParam("gorevId") Long gorevId,
                                              @RequestParam("gorevAdi") String gorevAdi) {
+        JSONObject jsonObject = new JSONObject();
+        if(departmanId.equals(0L) || gorevAdi.equals("") || gorevId.equals(0L)) {
+            jsonObject.put("success",true);
+            jsonObject.put("exist",false);
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Zorunlu alanları doldurunuz");
+            return jsonObject.toString();
+        }
         Departman departman = departmanService.departmanLoad(departmanId);
 
         Boolean exist = gorevService.gorevUpdate(departman,gorevAdi,gorevId);
-        JSONObject jsonObject = new JSONObject();
         if(exist) {
             jsonObject.put("icon","success");
             jsonObject.put("title","Departman Başarıyla Güncellendi");
@@ -105,7 +119,7 @@ public class GorevController {
     }
     @PostMapping(value = "/gorevGetir")
     public @ResponseBody String gorevGetir (@RequestParam("departmanId") long departmanId) {
-        Departman departman = departmanService.departmanLoad(departmanId);
+      //  Departman departman = departmanService.departmanLoad(departmanId);
         JSONObject jsonObject = new JSONObject();
         List<Gorev> gorevList = gorevService.gorevGetir(departmanId);
 

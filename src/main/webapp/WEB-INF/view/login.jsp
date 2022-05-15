@@ -17,7 +17,7 @@
     <div class="card">
         <div class="card-body login-card-body">
 
-            <form action="#" method="post">
+            <form action="javascript:void(0)">
                 <div class="input-group mb-3">
                     <input type="email" class="form-control" placeholder="Email" id="email">
                     <div class="input-group-append">
@@ -50,37 +50,50 @@
     </div>
 </div>
 <!-- /.login-box -->
-<%@include file="includes/script.jsp"%>
 
+<script src="${pageContext.request.contextPath}/resources/js/jquery/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $("#loginbtn").click(function () {
         let url = "loginKontrol";
         let email = $("#email").val();
         let password = $("#password").val();
-        //  console.log(email + password);
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: {
-                email : email,
-                password : password
-            },
-            success: function (response) {
-                Swal.fire({
-                    position: 'center-center',
-                    icon: response.icon,
-                    title: response.title,
-                    showConfirmButton: false,
-                    timer: 10000
-                });
-                if(response.exists) {
+        if(email &&password) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    email : email,
+                    password : password
+                },
+                success: function (response) {
+                    Swal.fire({
+                        position: 'center-center',
+                        icon: response.icon,
+                        title: response.title,
+                        showConfirmButton: true,
+                        timer: 3000
+                    });
+                    setTimeout(function () {
+                        if(response.exists) {
 
-                    window.location.href = "personelListele";
+                            window.location.href = "personelListele";
 
-                }
-            },
-            dataType: "json"
-        });
+                        }
+                    },1000)
+                },
+                dataType: "json"
+            });
+        }
+        else {
+            Swal.fire({
+                position: 'center-center',
+                icon: 'error',
+                title: 'Zorunlu alanları doldurunuz',
+                showConfirmButton: true,
+                timer: 3000
+            });
+        }
     });
 
 </script></body>

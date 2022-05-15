@@ -23,7 +23,7 @@ public class InsanKaynaklari implements Serializable {
     @Transient
     private String adSoyad;
 
-    @Column(name = "ik_eposta", nullable = false)
+    @Column(name = "ik_eposta", nullable = false,unique = true)
     private String ikEposta;
 
     @Column(name = "ik_sifre", nullable = false)

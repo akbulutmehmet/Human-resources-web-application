@@ -39,19 +39,7 @@ public class Gorev implements Serializable {
     public void setDepartman(Departman departman) {
         this.departman = departman;
     }
-    /*
-    @OneToOne(mappedBy=departman,fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
-    private Departman departman ;
 
-    public Departman getDepartman() {
-        return departman;
-    }
-
-    public void setDepartman(Departman departman) {
-        this.departman = departman;
-    }
-
-     */
 
     public void setGorevId(Long id) {
         this.gorevId = id;

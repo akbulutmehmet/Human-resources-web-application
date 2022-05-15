@@ -30,8 +30,15 @@ public class InsanKaynaklariController {
     @PostMapping(value = "/insanKaynaklariKaydet")
     public @ResponseBody String insanKaynaklariKaydet (@RequestParam("isim") String isim,@RequestParam("soyisim") String soyIsim,
                                                        @RequestParam("email") String email,@RequestParam("password") String password) {
-        Boolean exist = insanKaynaklariService.insanKaynaklariKaydet(isim,soyIsim,email,password);
         JSONObject jsonObject = new JSONObject();
+        if(isim.equals("") || soyIsim.equals("") || email.equals("") || password.equals("")) {
+            jsonObject.put("success",true);
+            jsonObject.put("exist",false);
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Zorunlu alanları doldurunuz");
+            return jsonObject.toString();
+        }
+        Boolean exist = insanKaynaklariService.insanKaynaklariKaydet(isim,soyIsim,email,password);
         if(exist) {
             jsonObject.put("icon","success");
             jsonObject.put("title","Ekleme işlemi başarılı");
@@ -52,13 +59,21 @@ public class InsanKaynaklariController {
         return "insanKaynaklariGuncelle";
     }
     @PostMapping(value = "/insanKaynaklariUpdate")
-    public @ResponseBody String insanKaynaklariUpdate (@RequestParam("id") long id,
+    public @ResponseBody String insanKaynaklariUpdate (@RequestParam("id") Long id,
                                                        @RequestParam("isim") String isim,
                                                        @RequestParam("soyisim") String soyisim,
                                                        @RequestParam("email") String email,
                                                        @RequestParam("password") String password) {
-        Boolean exist = insanKaynaklariService.insanKaynaklariUpdate(id,isim,soyisim,email,password);
         JSONObject jsonObject = new JSONObject();
+        if(id.equals(0L)||isim.equals("") || soyisim.equals("") || email.equals("") || password.equals("")) {
+            jsonObject.put("success",true);
+            jsonObject.put("exist",false);
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Zorunlu alanları doldurunuz");
+            return jsonObject.toString();
+        }
+        Boolean exist = insanKaynaklariService.insanKaynaklariUpdate(id,isim,soyisim,email,password);
+
         if(exist) {
             jsonObject.put("icon","success");
             jsonObject.put("title","Başarı ile güncellendi");

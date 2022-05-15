@@ -34,18 +34,38 @@ public class PersonelController {
         model.addAttribute("personelList",personelList);
         return "personelListele";
     }
+
     @PostMapping(value = "/personelKaydet")
     public @ResponseBody String personelKaydet (
             @RequestParam(value = "personelId",required = false) Long personelId,
             @RequestParam("personelAd") String personelAd,
             @RequestParam("personelSoyad") String personelSoyad,
-            @RequestParam("personelTc") long personelTc,
+            @RequestParam("personelTc") Long personelTc,
             @RequestParam("personelCinsiyet") String personelCinsiyet,
-            @RequestParam("personelMaas") long personelMaas,
+            @RequestParam("personelMaas") Long personelMaas,
             @RequestParam("isBaslangicTarihi") String isBaslangicTarihi,
-            @RequestParam("personelGorevId") long personelGorevId
+            @RequestParam("personelGorevId") Long personelGorevId
     ) {
         JSONObject jsonObject = new JSONObject();
+        /**
+         * İstekten gelen parametlerin değerlerinin boş kontrolü
+         */
+        if(personelAd.equals("") ||
+           personelSoyad.equals("") ||
+           personelTc.equals(0L) ||
+            personelCinsiyet.equals("") ||
+            personelMaas.equals(0L) ||
+            isBaslangicTarihi.equals("") ||
+            personelGorevId.equals(0L)
+
+        ) {
+            jsonObject.put("success",true);
+            jsonObject.put("exist",false);
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Zorunlu alanları doldurunuz");
+            return jsonObject.toString();
+        }
+
         Gorev gorev = gorevService.gorevLoad(personelGorevId);
         Boolean exist = personelService.personelKaydet(personelId,personelAd,personelSoyad,personelTc,personelMaas,isBaslangicTarihi,gorev,personelCinsiyet);
         if(exist) {

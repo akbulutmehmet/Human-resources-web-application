@@ -26,7 +26,7 @@
         <div class="col-md-8">
           <div class="card">
            <div class="card-body">
-             <form action="">
+             <form action="javascript:void(0)">
                <div class="form-gruop mt-1">
                  <label for="personelDepartman">Personel Departman Seçiniz</label>
                  <select name="personelDepartman" id="personelDepartman" class="form-control"  data-url="${pageContext.request.contextPath}" onchange="gorevGetir(this.value)">

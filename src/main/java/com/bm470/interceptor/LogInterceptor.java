@@ -26,22 +26,30 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        /*
+
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         setLogger(method.getClass());
+        String log = "Metod adı : " ;
+        log += method.getName().toString() + " - ";
+        log += "Geri donus tipi : " + method.getReturnType().getName() + " - ";
+        log += "Request url : " + request.getRequestURL();
 
-        Map<String,String[]> parameterMap = request.getParameterMap();
-        Set<String> stringSet = parameterMap.keySet();
-        Iterator<String> keyItertor = stringSet.iterator();
-
-        while (keyItertor.hasNext()) {
-            String key = keyItertor.next();
-            String value = String.valueOf(parameterMap.get(key));
-            logger.info(key + " " + value);
+            Map<String,String[]> parameterMap = request.getParameterMap();
+            Set<String> setKey = parameterMap.keySet();
+        Iterator <String> iterator = setKey.iterator();
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            log +="- " +  "Paratmere Adı : " + key + " - ";
+            String [] value = parameterMap.get(key);
+            for(int i=0 ; i<value.length;i++) {
+                log +="Parametre degeri : " + value[i] + " -  ";
+            }
         }
+        logger.info(log);
 
-         */
+
+
         return super.preHandle(request, response, handler);
     }
 

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -72,5 +73,15 @@ public class PersonelService {
 
         List<Personel> personelList = personelDAO.personelGetir(gorevId);
         return personelList;
+    }
+
+    public void izinGuncelle() {
+        List<Personel> personelList = personelListele();
+        Iterator<Personel> personelIterator = personelList.iterator();
+        while (personelIterator.hasNext()) {
+            Personel personel = personelIterator.next();
+            personel.setPersonelIzinHakki(20L);
+            mainDAO.saveOrUpdateObject(personel);
+        }
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -19,6 +20,7 @@ import java.util.List;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.bm470")
+@EnableScheduling
 public class WebConfig implements WebMvcConfigurer {
 
 
@@ -57,11 +59,13 @@ public class WebConfig implements WebMvcConfigurer {
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-     //   registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/*");
-        registry.addInterceptor(new SessionInterceptor())
-               .addPathPatterns("/*").excludePathPatterns("/").excludePathPatterns("/loginKontrol");
+
+    //   registry.addInterceptor(new SessionInterceptor())
+      //         .addPathPatterns("/*").excludePathPatterns("/").excludePathPatterns("/loginKontrol");
             registry.addInterceptor(new LogInterceptor()).addPathPatterns("/*");
     }
+
+
 
 
 }

@@ -25,22 +25,22 @@
         <div class="col-md-8">
           <div class="card">
            <div class="card-body">
-             <form action="#" method="post">
+             <form action="javascript:void(0)">
                <div class="form-gruop mb-1">
                  <label for="isim">İK İsmini Giriniz</label>
-                 <input class="form-control" type="text" name="isim" id="isim" placeholder="İK İsmini Giriniz">
+                 <input class="form-control" type="text" name="isim" id="isim" placeholder="İK İsmini Giriniz" required>
                </div>
                <div class="form-gruop mt-1">
                  <label for="soyisim">İK Soyisim Giriniz</label>
-                 <input class="form-control" type="text" name="soyisim" id="soyisim" placeholder="İK Soyisim Giriniz">
+                 <input class="form-control" type="text" name="soyisim" id="soyisim" placeholder="İK Soyisim Giriniz" required>
                </div>
                <div class="form-gruop mt-1">
                  <label for="email">İK Email Giriniz</label>
-                 <input class="form-control" type="email" name="email" id="email" placeholder="İK Email Giriniz">
+                 <input class="form-control" type="email" name="email" id="email" placeholder="İK Email Giriniz" required>
                </div>
                <div class="form-gruop mt-1">
                  <label for="password">İK Şifre Giriniz</label>
-                 <input class="form-control" type="password" name="password" id="password" placeholder="İK Şifre Giriniz">
+                 <input class="form-control" type="password" minlength="6" name="password" id="password" placeholder="İK Şifre Giriniz" required >
                </div>
                <div class="form-gruop mt-1">
                  <button type="button" id="btnIkKaydet" class="btn btn-outline-success">EKLE</button>

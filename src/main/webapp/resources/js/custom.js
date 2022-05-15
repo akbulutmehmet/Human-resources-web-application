@@ -1,17 +1,17 @@
 $(function () {
     $("#dataTables").DataTable({
         "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+
     });
 
 });
 $("#btnIkKaydet").click(function () {
     let url = "insanKaynaklariKaydet";
-    let isim = $("#isim").val();
+    let isim = $("#isim").val().trim();
     let soyisim = $("#soyisim").val();
     let email = $("#email").val();
     let password = $("#password").val();
-
     $.ajax({
         type: "POST",
         url: url,
@@ -38,7 +38,6 @@ $("#btnIkKaydet").click(function () {
         dataType: "json"
     });
 });
-
 $("#btnIkGuncelle").click(function () {
     let url = $("#dataUrl").val();
     let redirect_url = $("#redirectUrl").val();
@@ -47,7 +46,6 @@ $("#btnIkGuncelle").click(function () {
     let soyisim = $("#soyisim").val();
     let email = $("#email").val();
     let password = $("#password").val();
-
     $.ajax({
         type: "POST",
         url: url,
@@ -75,8 +73,8 @@ $("#btnIkGuncelle").click(function () {
         },
         dataType: "json"
     });
-});
 
+});
 $(".btnIkSil").click(function () {
         let data_id = $(this).data("id");
         let url = "insanKaynaklariSil";
@@ -116,13 +114,9 @@ $(".btnIkSil").click(function () {
         })
 
     });
-
-
 $("#btnDepartmanKaydet").click(function () {
     let url = "departmanKaydet";
     let departmanAdi = $("#departmanAdi").val();
-
-
     $.ajax({
         type: "POST",
         url: url,
@@ -148,14 +142,13 @@ $("#btnDepartmanKaydet").click(function () {
         },
         dataType: "json"
     });
-});
 
+});
 $("#btnDepartmanGuncelle").click(function () {
     let url = $("#dataUrl").val();
     let redirect_url = $("#redirectUrl").val();
     let departmanId = $("#departmanId").val();
     let departmanAdi = $("#departmanAdi").val();
-
     $.ajax({
         type: "POST",
         url: url,
@@ -181,7 +174,6 @@ $("#btnDepartmanGuncelle").click(function () {
         dataType: "json"
     });
 });
-
 $(".btnDepartmanSil").click(function () {
         let data_id = $(this).data("id");
         let url = "departmanSil";
@@ -221,13 +213,10 @@ $(".btnDepartmanSil").click(function () {
         })
 
     });
-
 $("#btnGorevKaydet").click(function () {
     let url = "gorevKaydet";
     let departmanId = $("#departmanId").val();
     let gorevAdi = $("#gorevAdi").val();
-
-
     $.ajax({
         type: "POST",
         url: url,
@@ -254,15 +243,15 @@ $("#btnGorevKaydet").click(function () {
         },
         dataType: "json"
     });
-});
 
+
+});
 $("#btnGorevUpdate").click(function () {
     let url = $("#dataUrl").val();
     let redirect_url = $("#redirectUrl").val();
     let departmanId = $("#departmanId").val();
     let gorevAdi = $("#gorevAdi").val();
     let gorevId = $("#gorevId").val();
-
     $.ajax({
         type: "POST",
         url: url,
@@ -289,7 +278,6 @@ $("#btnGorevUpdate").click(function () {
         dataType: "json"
     });
 });
-
 $(".btnGorevSil").click(function () {
     let data_id = $(this).data("id");
     let url = "gorevSil";
@@ -339,8 +327,6 @@ $("#btnPersonelKaydet").click(function () {
     let personelMaas = $("#personelMaas").val();
     let personelGorevId = $("#personelGorevId").val();
     let isBaslangicTarihi = $("#isBaslangicTarihi").val();
-
-
     $.ajax({
         type: "POST",
         url: url,
@@ -375,6 +361,8 @@ $("#btnPersonelKaydet").click(function () {
 
 
 
+
+
 });
 $("#btnPersonelGuncelle").click(function () {
     let url = $("#personelUpdateUrl").val();
@@ -387,7 +375,6 @@ $("#btnPersonelGuncelle").click(function () {
     let personelMaas = $("#personelMaas").val();
     let personelGorevId = $("#personelGorevId").val();
     let isBaslangicTarihi = $("#isBaslangicTarihi").val();
-
 
     $.ajax({
         type: "POST",
@@ -424,8 +411,9 @@ $("#btnPersonelGuncelle").click(function () {
 
 
 
-});
 
+
+});
 $(".btnPersonelSil").click(function () {
     let data_id = $(this).data("id");
     let url = "personelSil";
@@ -466,13 +454,11 @@ $(".btnPersonelSil").click(function () {
 
 
 });
-
 $("#btnIzinliPersonelEkle").click(function () {
     let url = "izinliPersonelKaydet";
     let personelId = $("#personelId").val();
     let izinBaslangicTarihi = $("#izinBaslangicTarihi").val();
     let izinBitisTarihi = $("#izinBitisTarihi").val();
-
     $.ajax({
         type: "POST",
         url: url,
@@ -501,11 +487,7 @@ $("#btnIzinliPersonelEkle").click(function () {
         },
         dataType: "json"
     });
-
-
-
 });
-
 $(".btnIzinliPersonelSil").click(function () {
     let data_id = $(this).data("id");
     let url = "izinliPersonelSil";
@@ -546,7 +528,6 @@ $(".btnIzinliPersonelSil").click(function () {
 
 
 });
-
 $("#btnIzinliPersonelGuncelle").click(function () {
 
     let url = $("#dataUrl").val();
@@ -554,7 +535,6 @@ $("#btnIzinliPersonelGuncelle").click(function () {
     let personelId = $("#personelId").val();
     let izinBaslangicTarihi = $("#izinBaslangicTarihi").val();
     let izinBitisTarihi = $("#izinBitisTarihi").val();
-
     $.ajax({
         type: "POST",
         url: url,
@@ -585,10 +565,7 @@ $("#btnIzinliPersonelGuncelle").click(function () {
     });
 
 
-
 });
-
-
 function gorevGetir (val) {
     let url = $("#personelDepartman").data("url");
     $("#bosDepartman").remove();
