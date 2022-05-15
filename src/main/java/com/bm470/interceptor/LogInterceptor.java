@@ -29,8 +29,9 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
-        setLogger(method.getClass());
-        String log = "Metod adı : " ;
+        setLogger(handlerMethod.getBeanType());
+        String log = "Class : " + handlerMethod.getBeanType().getName();
+        log += " Metod adi : " ;
         log += method.getName().toString() + " - ";
         log += "Geri donus tipi : " + method.getReturnType().getName() + " - ";
         log += "Request url : " + request.getRequestURL();
@@ -40,7 +41,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
         Iterator <String> iterator = setKey.iterator();
         while (iterator.hasNext()) {
             String key = iterator.next();
-            log +="- " +  "Paratmere Adı : " + key + " - ";
+            log +="- " +  "Paratmere adi : " + key + " - ";
             String [] value = parameterMap.get(key);
             for(int i=0 ; i<value.length;i++) {
                 log +="Parametre degeri : " + value[i] + " -  ";

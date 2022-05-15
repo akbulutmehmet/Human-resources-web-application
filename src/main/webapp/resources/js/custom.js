@@ -1,11 +1,10 @@
-$(function () {
-    $("#dataTables").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-
-    });
-
-});
+$("#dataTables").DataTable(
+    {
+        language: {
+            url: "//cdn.datatables.net/plug-ins/1.12.0/i18n/tr.json",
+        }
+    }
+);
 $("#btnIkKaydet").click(function () {
     let url = "insanKaynaklariKaydet";
     let isim = $("#isim").val().trim();
@@ -533,6 +532,7 @@ $("#btnIzinliPersonelGuncelle").click(function () {
     let url = $("#dataUrl").val();
     let redirectUrl = $("#redirectUrl").val();
     let personelId = $("#personelId").val();
+    let izinliPersonelId = $("#izinliPersonelId").val();
     let izinBaslangicTarihi = $("#izinBaslangicTarihi").val();
     let izinBitisTarihi = $("#izinBitisTarihi").val();
     $.ajax({
@@ -541,8 +541,8 @@ $("#btnIzinliPersonelGuncelle").click(function () {
         data: {
             personelId : personelId,
             izinBaslangicTarihi : izinBaslangicTarihi,
-            izinBitisTarihi : izinBitisTarihi
-
+            izinBitisTarihi : izinBitisTarihi,
+            izinliPersonelId :izinliPersonelId
         },
         success: function (response) {
             Swal.fire({

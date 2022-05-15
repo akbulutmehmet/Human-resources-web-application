@@ -67,6 +67,14 @@ public class IzinliPersonelController {
             jsonObject.put("title","Zorunlu alanları doldurunuz");
             return jsonObject.toString();
         }
+        Personel personel = personelService.personelLoad(personelId);
+        if(personel.getPersonelIzinHakki() == null  || personel.getPersonelIzinHakki() <= 0L) {
+            jsonObject.put("success",true);
+            jsonObject.put("exist",false);
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Personelin İzin Hakkı Yoktur");
+            return jsonObject.toString();
+        }
         Boolean exist = izinliPersonelService.izinliPersonelKaydet(izinliPersonelId,izinBaslangicTarihi,izinBitisTarihi,personelId);
         if(exist) {
             jsonObject.put("icon","success");

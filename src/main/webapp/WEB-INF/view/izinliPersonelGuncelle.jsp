@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="form-gruop mt-1">
                                     <label for="izinBitisTarihi">Personel İzin Bitiş Tarihi</label>
-                                    <input type="date" name="izinBitisTarihi" id="izinBitisTarihi" class="form-control" value="${izinliPersonel.izinBaslangicTarihi}">
+                                    <input type="date" name="izinBitisTarihi" id="izinBitisTarihi" class="form-control" value="${izinliPersonel.izinBitisTarihi}">
                                 </div>
                                 <div class="form-gruop mt-1">
                                     <button class="btn btn-outline-success" type="button" id="btnIzinliPersonelGuncelle">GÜNCELLE</button>

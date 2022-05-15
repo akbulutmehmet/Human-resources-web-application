@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -58,12 +59,22 @@ public class IzinliPersonelService {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        Long izinliGunSayisi = personelIzinBitisTarihi.getTime() - personelIzinBaslangicTarihi.getTime();
+        Date izinliDate = new Date(izinliGunSayisi);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(izinliDate);
 
         izinliPersonel.setPersonel(personel);
         izinliPersonel.setIzinBaslangicTarihi(personelIzinBaslangicTarihi);
         izinliPersonel.setIzinBitisTarihi(personelIzinBitisTarihi);
+        Long gunSayisi = Long.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+        Boolean exist = false;
+        if(gunSayisi<=personel.getPersonelIzinHakki()) {
+            personel.setPersonelIzinHakki(personel.getPersonelIzinHakki()-gunSayisi);
+            mainDAO.saveOrUpdateObject(personel);
+           exist  = mainDAO.saveOrUpdateObject(izinliPersonel);
+        }
 
-        Boolean exist = mainDAO.saveOrUpdateObject(izinliPersonel);
         return exist;
 
     }

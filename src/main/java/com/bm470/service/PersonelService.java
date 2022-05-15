@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -80,8 +81,17 @@ public class PersonelService {
         Iterator<Personel> personelIterator = personelList.iterator();
         while (personelIterator.hasNext()) {
             Personel personel = personelIterator.next();
-            personel.setPersonelIzinHakki(20L);
-            mainDAO.saveOrUpdateObject(personel);
+            if(personel.getIsBaslangicTarihi() == null) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(personel.getIsBaslangicTarihi());
+                calendar.add(Calendar.DATE,365);
+                Date izinTarihi = calendar.getTime();
+                if(izinTarihi.after(personel.getIsBaslangicTarihi())) {
+                    personel.setPersonelIzinHakki(20L);
+                    mainDAO.saveOrUpdateObject(personel);
+                }
+            }
         }
     }
 }
