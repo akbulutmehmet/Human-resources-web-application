@@ -43,7 +43,7 @@ public class PersonelController {
             @RequestParam("personelAd") String personelAd,
             @RequestParam("personelSoyad") String personelSoyad,
             @RequestParam("personelTc") Long personelTc,
-            @RequestParam("personelCinsiyet") String personelCinsiyet,
+            @RequestParam("personelCinsiyet") Long personelCinsiyet,
             @RequestParam("personelMaas") Long personelMaas,
             @RequestParam("isBaslangicTarihi") String isBaslangicTarihi,
             @RequestParam("personelGorevId") Long personelGorevId

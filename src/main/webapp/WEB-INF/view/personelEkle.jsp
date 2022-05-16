@@ -46,8 +46,8 @@
                <div class="form-gruop mt-1">
                  <label for="personelCinsiyet">Personel Cinsiyet Seçiniz</label>
                  <select name="personelCinsiyet" id="personelCinsiyet" class="form-control">
-                   <option value="erkek">Erkek</option>
-                   <option value="kadın">Kadın</option>
+                   <option value="1">ERKEK</option>
+                   <option value="0">KADIN</option>
                  </select>
                </div>
                <div class="form-gruop mt-1">

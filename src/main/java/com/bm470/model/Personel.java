@@ -27,7 +27,7 @@ public class Personel implements Serializable {
     private Long personelTc;
 
     @Column(name="personel_cinsiyet",nullable = false)
-    private String personelCinsiyet;
+    private Long personelCinsiyet;
 
 
     @Column(name="personel_maas",nullable = false)
@@ -92,11 +92,11 @@ public class Personel implements Serializable {
         return personelTc;
     }
 
-    public void setPersonelCinsiyet(String personelCinsiyet) {
+    public void setPersonelCinsiyet(Long personelCinsiyet) {
         this.personelCinsiyet = personelCinsiyet;
     }
 
-    public String getPersonelCinsiyet() {
+    public Long getPersonelCinsiyet() {
         return personelCinsiyet;
     }
 

@@ -56,7 +56,16 @@
                                       <td><c:out value=" ${personel.personelAd}"></c:out></td>
                                       <td><c:out value=" ${personel.personelSoyad}"></c:out></td>
                                       <td><c:out value=" ${personel.personelTc}"></c:out></td>
-                                      <td><c:out value=" ${personel.personelCinsiyet}"></c:out></td>
+                                      <td>
+
+                                          <c:if test="${personel.personelCinsiyet == 1}" >
+                                              ERKEK
+                                          </c:if>
+                                          <c:if test="${personel.personelCinsiyet == 0}" >
+                                              KADIN
+                                          </c:if>
+
+                                      </td>
                                       <td><c:out value=" ${personel.isBaslangicTarihi}"></c:out></td>
                                       <td><c:out value=" ${personel.gorev.departman.departmanAdi}"></c:out></td>
                                       <td><c:out value=" ${personel.gorev.gorevAdi}"></c:out></td>

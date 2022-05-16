@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import com.bm470.util.HashUtil;
 
 @Controller
 public class LoginController {
@@ -48,7 +49,12 @@ public class LoginController {
             jsonObject.put("title","Zorunlu alanları doldurunuz");
             return jsonObject.toString();
         }
-        InsanKaynaklari insanKaynaklari = insanKaynaklariService.loginKontrol(email,password);
+        HashUtil hashUtil = new HashUtil(password);
+        String hashPassword = hashUtil.md5();
+
+
+
+        InsanKaynaklari insanKaynaklari = insanKaynaklariService.loginKontrol(email,hashPassword);
         Boolean exists = false;
         if(insanKaynaklari != null) {
             exists = true;
@@ -69,6 +75,7 @@ public class LoginController {
 
         jsonObject.put("success", true);
         jsonObject.put("exists", exists);
+
 
         return jsonObject.toString();
 

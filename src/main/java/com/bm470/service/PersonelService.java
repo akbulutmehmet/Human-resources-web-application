@@ -30,7 +30,7 @@ public class PersonelService {
         return personelList;
     }
     @Transactional(readOnly = false)
-    public Boolean personelKaydet(Long personelId,String personelAd, String personelSoyad, long personelTc, long personelMaas, String isBaslangicTarihi, Gorev gorev,String personelCinsiyet) {
+    public Boolean personelKaydet(Long personelId,String personelAd, String personelSoyad, long personelTc, long personelMaas, String isBaslangicTarihi, Gorev gorev,Long personelCinsiyet) {
         Personel personel = null;
         if(personelId != null) {
             personel = personelLoad(personelId);

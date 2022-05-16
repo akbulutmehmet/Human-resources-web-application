@@ -127,6 +127,7 @@ public class GorevController {
         for (Gorev gorev : gorevList) {
             gorevler += "<option value='" + gorev.getGorevId() + "'>" + gorev.getGorevAdi() + "</option>";
         }
+        gorevler += "<option value='0' selected>" + "GÖREV SEÇİMİ YAPINIZ" + "</option>";
         jsonObject.put("gorevler",gorevler);
         return jsonObject.toString();
     }

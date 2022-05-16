@@ -63,7 +63,6 @@ public class IzinliPersonelService {
         Date izinliDate = new Date(izinliGunSayisi);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(izinliDate);
-
         izinliPersonel.setPersonel(personel);
         izinliPersonel.setIzinBaslangicTarihi(personelIzinBaslangicTarihi);
         izinliPersonel.setIzinBitisTarihi(personelIzinBitisTarihi);

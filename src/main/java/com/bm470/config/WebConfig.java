@@ -20,8 +20,8 @@ import java.util.List;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.bm470")
 @EnableScheduling
+@ComponentScan(basePackages = "com.bm470")
 public class WebConfig implements WebMvcConfigurer {
 
 

@@ -49,14 +49,14 @@
                 <div class="form-gruop mt-1">
                   <label for="personelCinsiyet">Personel Cinsiyet Seçiniz</label>
                   <select name="personelCinsiyet" id="personelCinsiyet" class="form-control">
-                    <c:set var="cinsiyetErkek" value="erkek"></c:set>
+                    <c:set var="cinsiyetErkek" value="1"></c:set>
                     <c:if test="${personel.personelCinsiyet == cinsiyetErkek}" >
-                      <option value="erkek" selected>Erkek</option>
-                      <option value="kadın">Kadın</option>
+                      <option value="1" selected>ERKEK</option>
+                      <option value="0">KADIN</option>
                     </c:if>
                     <c:if test="${personel.personelCinsiyet != cinsiyetErkek}" >
-                      <option value="erkek" >Erkek</option>
-                      <option value="kadın" selected>Kadın</option>
+                      <option value="1" >ERKEK</option>
+                      <option value="0" selected>KADIN</option>
                     </c:if>
 
                   </select>
