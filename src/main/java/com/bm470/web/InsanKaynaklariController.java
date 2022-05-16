@@ -2,6 +2,7 @@ package com.bm470.web;
 
 import com.bm470.model.InsanKaynaklari;
 import com.bm470.service.InsanKaynaklariService;
+import com.bm470.util.HashUtil;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,9 @@ public class InsanKaynaklariController {
             jsonObject.put("title","Zorunlu alanları doldurunuz");
             return jsonObject.toString();
         }
-        Boolean exist = insanKaynaklariService.insanKaynaklariKaydet(isim,soyIsim,email,password);
+        HashUtil hashUtil = new HashUtil(password);
+        String hashPassword = hashUtil.md5();
+        Boolean exist = insanKaynaklariService.insanKaynaklariKaydet(isim,soyIsim,email,hashPassword);
         if(exist) {
             jsonObject.put("icon","success");
             jsonObject.put("title","Ekleme işlemi başarılı");
@@ -72,7 +75,18 @@ public class InsanKaynaklariController {
             jsonObject.put("title","Zorunlu alanları doldurunuz");
             return jsonObject.toString();
         }
-        Boolean exist = insanKaynaklariService.insanKaynaklariUpdate(id,isim,soyisim,email,password);
+        InsanKaynaklari insanKaynaklari = insanKaynaklariService.insanKaynaklariLoad(id);
+        HashUtil hashUtil;
+        String hashPassword;
+        if(!password.equals(insanKaynaklari.getIkSifre())) {
+            hashUtil = new HashUtil(password);
+             hashPassword = hashUtil.md5();
+        }
+        else  {
+            hashPassword = password;
+        }
+
+        Boolean exist = insanKaynaklariService.insanKaynaklariUpdate(id,isim,soyisim,email,hashPassword);
 
         if(exist) {
             jsonObject.put("icon","success");

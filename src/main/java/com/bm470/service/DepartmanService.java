@@ -56,39 +56,4 @@ public class DepartmanService {
     }
 
 
-
-    /*
-    @Transactional(readOnly = false)
-    public Boolean insanKaynaklariKaydet(String isim, String soyIsim, String email, String password) {
-        InsanKaynaklari insanKaynaklari = new InsanKaynaklari();
-        insanKaynaklari.setIkAd(isim);
-        insanKaynaklari.setIkSoyad(soyIsim);
-        insanKaynaklari.setIkEposta(email);
-        insanKaynaklari.setIkSifre(password);
-        Boolean exist = mainDAO.saveOrUpdateObject(insanKaynaklari);
-
-        return exist;
-    }
-    @Transactional(readOnly = false)
-    public Boolean insanKaynaklariSil(long id) {
-        InsanKaynaklari insanKaynaklari = (InsanKaynaklari) mainDAO.loadObject(InsanKaynaklari.class,id);
-        return mainDAO.removeObject(insanKaynaklari);
-    }
-
-    public InsanKaynaklari insanKaynaklariLoad(long id) {
-        InsanKaynaklari insanKaynaklari = (InsanKaynaklari) mainDAO.loadObject(InsanKaynaklari.class,id);
-        return insanKaynaklari;
-    }
-    @Transactional(readOnly = false)
-    public Boolean insanKaynaklariUpdate(long id, String isim, String soyisim, String email, String password) {
-        InsanKaynaklari insanKaynaklari = insanKaynaklariLoad(id);
-        insanKaynaklari.setIkAd(isim);
-        insanKaynaklari.setIkSoyad(soyisim);
-        insanKaynaklari.setIkEposta(email);
-        insanKaynaklari.setIkSifre(password);
-        Boolean exist = mainDAO.saveOrUpdateObject(insanKaynaklari);
-        return exist;
-    }
-    */
-
 }

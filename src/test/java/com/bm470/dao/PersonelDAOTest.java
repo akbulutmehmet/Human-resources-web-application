@@ -8,14 +8,16 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {WebAppInitializer.class, AppConfig.class,
@@ -30,12 +32,12 @@ public class PersonelDAOTest {
     @Test
     public void personelListele() {
         List<Personel> personelList = personelDAO.personelListele();
-        Assert.assertNotNull(personelList);
+        Assert.assertTrue(personelList.size()>0);
     }
 
     @Test
     public void personelGetir() {
         List<Personel> personelList = personelDAO.personelGetir(1L);
-        Assert.assertNotNull(personelList);
+        Assert.assertTrue(personelList.size()>0);
     }
 }
