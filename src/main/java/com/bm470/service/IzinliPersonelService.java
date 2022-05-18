@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, readOnly =true,rollbackFor = Exception.class)
@@ -45,6 +46,10 @@ public class IzinliPersonelService {
         IzinliPersonel izinliPersonel = null;
         if(izinliPersonelId != null) {
             izinliPersonel = izinliPersonelLoad(izinliPersonelId);
+            Long izinliGunSayisi = izinliPersonel.getIzinBitisTarihi().getTime() - izinliPersonel.getIzinBaslangicTarihi().getTime();
+            izinliGunSayisi = TimeUnit.DAYS.convert(izinliGunSayisi,TimeUnit.MILLISECONDS);
+            personel.setPersonelIzinHakki(personel.getPersonelIzinHakki() + izinliGunSayisi);
+            mainDAO.saveOrUpdateObject(personel);
         }
         else {
             izinliPersonel = new IzinliPersonel();
@@ -60,18 +65,16 @@ public class IzinliPersonelService {
             e.printStackTrace();
         }
         Long izinliGunSayisi = personelIzinBitisTarihi.getTime() - personelIzinBaslangicTarihi.getTime();
-        Date izinliDate = new Date(izinliGunSayisi);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(izinliDate);
+
         izinliPersonel.setPersonel(personel);
         izinliPersonel.setIzinBaslangicTarihi(personelIzinBaslangicTarihi);
         izinliPersonel.setIzinBitisTarihi(personelIzinBitisTarihi);
-        Long gunSayisi = Long.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+        Long gunSayisi = TimeUnit.DAYS.convert(izinliGunSayisi,TimeUnit.MILLISECONDS);
         Boolean exist = false;
         if(gunSayisi<=personel.getPersonelIzinHakki()) {
             personel.setPersonelIzinHakki(personel.getPersonelIzinHakki()-gunSayisi);
             mainDAO.saveOrUpdateObject(personel);
-           exist  = mainDAO.saveOrUpdateObject(izinliPersonel);
+            exist  = mainDAO.saveOrUpdateObject(izinliPersonel);
         }
 
         return exist;

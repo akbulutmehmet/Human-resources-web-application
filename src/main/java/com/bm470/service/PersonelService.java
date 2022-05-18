@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, readOnly =true,rollbackFor = Exception.class)
@@ -77,22 +78,24 @@ public class PersonelService {
         List<Personel> personelList = personelDAO.personelGetir(gorevId);
         return personelList;
     }
-
+    @Transactional(readOnly = false)
     public void izinGuncelle() {
         List<Personel> personelList = personelListele();
         Iterator<Personel> personelIterator = personelList.iterator();
         while (personelIterator.hasNext()) {
             Personel personel = personelIterator.next();
-            if(personel.getIsBaslangicTarihi() == null) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(personel.getIsBaslangicTarihi());
-                calendar.add(Calendar.DATE,365);
-                Date izinTarihi = calendar.getTime();
-                if(izinTarihi.after(personel.getIsBaslangicTarihi())) {
-                    personel.setPersonelIzinHakki(20L);
-                    mainDAO.saveOrUpdateObject(personel);
+            Date tarih = new Date();
+            Long ikiTarihFark = tarih.getTime() - personel.getIsBaslangicTarihi().getTime();
+            ikiTarihFark = TimeUnit.DAYS.convert(ikiTarihFark,TimeUnit.MILLISECONDS);
+            System.out.println(ikiTarihFark);
+            if(ikiTarihFark>=1) {
+                if(personel.getPersonelIzinHakki() != null) {
+                    personel.setPersonelIzinHakki(personel.getPersonelIzinHakki() + 20L);
                 }
+                else  {
+                    personel.setPersonelIzinHakki(20L);
+                }
+                mainDAO.saveOrUpdateObject(personel);
             }
         }
     }

@@ -11,6 +11,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 @Component
@@ -19,9 +22,17 @@ public class CronHelper {
     private PersonelService personelService;
 
     private  static Logger logger = LoggerFactory.getLogger(CronHelper.class);
-    @Scheduled(cron="0 0 0 * * *", zone="Europe/Istanbul")
+
+
+    @Scheduled(cron="0 59 23 1 1 *", zone="Europe/Istanbul")
     public void izinGuncelle () {
       personelService.izinGuncelle();
-      logger.info("Personel İzin Hakları Güncellendi");
+        Date now = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = simpleDateFormat.format(now);
+        String log = "Class : " +  CronHelper.class.getCanonicalName();
+        log += " - " + " Tarih : "  + date;
+        log += " - " + " Personel izin haklari guncellendi. ";
+        logger.info(log);
     }
 }
