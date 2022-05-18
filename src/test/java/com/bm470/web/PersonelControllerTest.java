@@ -202,4 +202,12 @@ public  class PersonelControllerTest {
         Boolean exist = (!personeller.equals("") && personeller != null);
         Assert.assertTrue(exist);
     }
+
+    @Test
+    public void personelTcKontrol() {
+        String response = personelController.personelTcKontrol(18512818914L);
+        JSONObject jsonObject = JSONObject.fromObject(response);
+        Boolean exist = (Boolean) jsonObject.get("exist");
+        Assert.assertTrue(exist);
+    }
 }
