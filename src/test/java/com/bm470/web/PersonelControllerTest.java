@@ -81,10 +81,7 @@ public  class PersonelControllerTest {
             }
         };
         String personelListele = personelController.personelListele(model);
-        Boolean exist = true;
-        if(personelListele.equals("") || personelListele==null) {
-            exist = false;
-        }
+        Boolean exist = personelListele.equals("personelListele");
         Assert.assertTrue(exist);
     }
 
@@ -93,7 +90,7 @@ public  class PersonelControllerTest {
     public void personelKaydet() {
         String response = personelController.personelKaydet(
                 null,"Mehmet","Akbulut",
-                1234L,1L,40000L,
+                18512818914L,1L,40000L,
                 "2022-05-15",4L
         );
         JSONObject jsonObject = JSONObject.fromObject(response);
@@ -140,8 +137,9 @@ public  class PersonelControllerTest {
                 return null;
             }
         };
-        String  exist =  departmanController.departmanListele(model);
-        Assert.assertNotNull(exist);
+        String  viewFile =  personelController.personelEkle(model);
+        Boolean exist = viewFile.equals("personelEkle");
+        Assert.assertTrue(exist);
     }
 
     @Test
@@ -182,28 +180,26 @@ public  class PersonelControllerTest {
                 return null;
             }
         };
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setParameter("personelId", String.valueOf(1L));
-        String exist = personelController.personelGuncelle(Long.parseLong(request.getParameter("personelId")),model);
+        String viewFile = personelController.personelGuncelle(7L,model);
+        Boolean exist = viewFile.equals("personelGuncelle");
         Assert.assertNotNull(exist);
 
     }
 
     @Test
     public void personelSil() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setParameter("personelId", String.valueOf(1L));
-        String exist = personelController.personelSil(Long.parseLong(request.getParameter("personelId")));
-        Assert.assertNotNull(exist);
-
+        String response = personelController.personelSil(7L);
+        JSONObject jsonObject = JSONObject.fromObject(response);
+        Boolean exist = (Boolean) jsonObject.get("exist");
+        Assert.assertTrue(exist);
     }
 
     @Test
     public void personelGetir() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setParameter("personelId", String.valueOf(1L));
-        String exist = personelController.personelGetir(Long.parseLong(request.getParameter("personelId")));
-        Assert.assertNotNull(exist);
-
+        String response = personelController.personelGetir(4L);
+        JSONObject jsonObject = JSONObject.fromObject(response);
+        String personeller = (String) jsonObject.get("personeller");
+        Boolean exist = (!personeller.equals("") && personeller != null);
+        Assert.assertTrue(exist);
     }
 }
