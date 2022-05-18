@@ -6,6 +6,7 @@ import com.bm470.model.Personel;
 import com.bm470.service.DepartmanService;
 import com.bm470.service.GorevService;
 import com.bm470.service.PersonelService;
+import com.bm470.util.TcCheck;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,25 @@ public class PersonelController {
     @Autowired
     private DepartmanService departmanService;
 
+    @PostMapping(value = "/personelTcKontrol")
+    public @ResponseBody String personelTcKontrol (@RequestParam("personelTc") Long personelTc) {
+        JSONObject jsonObject = new JSONObject();
+        TcCheck tcCheck = new TcCheck();
+        tcCheck.setTcNo(personelTc);
+        Boolean exist = false;
+        if(tcCheck.tcCheck()) {
+            exist = personelService.personelTcKontrol(personelTc);
+        }
+        if(!exist) {
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Hatalı Tc girdiniz!");
+            return jsonObject.toString();
+        }
+        jsonObject.put("exist",exist);
+        jsonObject.put("icon","success");
+        jsonObject.put("title","Girdiğiniz TC Doğru");
+        return jsonObject.toString();
+    }
     @GetMapping(value = "/personelListele")
     public String personelListele(Model model){
         model.addAttribute("title","Personel İşlemleri");
@@ -69,7 +89,13 @@ public class PersonelController {
         }
 
         Gorev gorev = gorevService.gorevLoad(personelGorevId);
-        Boolean exist = personelService.personelKaydet(personelId,personelAd,personelSoyad,personelTc,personelMaas,isBaslangicTarihi,gorev,personelCinsiyet);
+        TcCheck tcCheck = new TcCheck();
+        tcCheck.setTcNo(personelTc);
+        Boolean exist=false;
+        if(tcCheck.tcCheck()) {
+             exist = personelService.personelKaydet(personelId,personelAd,personelSoyad,personelTc,personelMaas,isBaslangicTarihi,gorev,personelCinsiyet);
+        }
+      //  Boolean exist = personelService.personelKaydet(personelId,personelAd,personelSoyad,personelTc,personelMaas,isBaslangicTarihi,gorev,personelCinsiyet);
         if(exist) {
             jsonObject.put("icon","success");
             jsonObject.put("title","Personel Ekleme işlemi başarılı");
@@ -129,5 +155,6 @@ public class PersonelController {
         jsonObject.put("personeller",personeller);
         return jsonObject.toString();
     }
+
 
 }

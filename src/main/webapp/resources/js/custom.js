@@ -601,3 +601,36 @@ function personelGetir (val) {
         dataType: "json"
     });
 }
+function tcKontrol(val) {
+    let url = $("#personelTc").data("url");
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+            personelTc : val
+        },
+        success: function (response) {
+            if(!response.exist) {
+                Swal.fire({
+                    position: 'center-center',
+                    icon: response.icon,
+                    title: response.title,
+                    showConfirmButton: false,
+                    timer: 10000
+                });
+
+            }
+            else {
+                Swal.fire({
+                    position: 'center-center',
+                    icon: response.icon,
+                    title: response.title,
+                    showConfirmButton: false,
+                    timer: 10000
+                });
+
+            }
+        },
+        dataType: "json"
+    });
+}

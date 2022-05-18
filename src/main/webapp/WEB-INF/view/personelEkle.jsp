@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="form-gruop mt-1">
                                     <label for="personelTc">Personel TC Giriniz</label>
-                                    <input class="form-control" type="number" name="personelTc" id="personelTc" placeholder="Personel TC Giriniz" maxlength="11">
+                                    <input class="form-control" type="number" name="personelTc" id="personelTc" placeholder="Personel TC Giriniz" maxlength="11" onfocusout="tcKontrol(this.value)" data-url="${pageContext.request.contextPath}/personelTcKontrol">
                                 </div>
                                 <div class="form-gruop mt-1">
                                     <label for="personelMaas">Personel Maaş Giriniz</label>

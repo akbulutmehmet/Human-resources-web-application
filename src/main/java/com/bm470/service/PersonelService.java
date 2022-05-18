@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -93,5 +95,20 @@ public class PersonelService {
                 }
             }
         }
+    }
+
+
+    public Boolean personelTcKontrol(Long personelTc) {
+        List<Long> personelTcList = personelDAO.personelTcListele();
+        Iterator<Long> iteratorPersonelTc = personelTcList.iterator();
+        Boolean exist = true;
+        while (iteratorPersonelTc.hasNext()) {
+            Long tc = iteratorPersonelTc.next();
+            if(personelTc.equals(tc)) {
+                exist = false;
+                break;
+            }
+        }
+        return exist;
     }
 }

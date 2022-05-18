@@ -50,4 +50,17 @@ public class PersonelDAO {
         List<Personel> personelList = query.getResultList();
         return personelList;
     }
+
+
+    public List<Long> personelTcListele() {
+        Session currentSession = getCurrentSession();
+        CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+        Root<Personel> root = criteriaQuery.from(Personel.class);
+
+        criteriaQuery.select(root.get("personelTc"));
+        Query<Long> query = currentSession.createQuery(criteriaQuery);
+        List<Long> personelTcList = query.getResultList();
+        return personelTcList;
+    }
 }
