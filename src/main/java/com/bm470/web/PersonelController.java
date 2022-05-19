@@ -7,16 +7,15 @@ import com.bm470.service.DepartmanService;
 import com.bm470.service.GorevService;
 import com.bm470.service.PersonelService;
 import com.bm470.util.TcCheck;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -67,7 +66,7 @@ public class PersonelController {
             @RequestParam("personelMaas") Long personelMaas,
             @RequestParam("isBaslangicTarihi") String isBaslangicTarihi,
             @RequestParam("personelGorevId") Long personelGorevId
-    ) {
+    )   {
         JSONObject jsonObject = new JSONObject();
         /**
          * İstekten gelen parametlerin değerlerinin boş kontrolü
@@ -95,7 +94,6 @@ public class PersonelController {
         if(tcCheck.tcCheck()) {
              exist = personelService.personelKaydet(personelId,personelAd,personelSoyad,personelTc,personelMaas,isBaslangicTarihi,gorev,personelCinsiyet);
         }
-      //  Boolean exist = personelService.personelKaydet(personelId,personelAd,personelSoyad,personelTc,personelMaas,isBaslangicTarihi,gorev,personelCinsiyet);
         if(exist) {
             jsonObject.put("icon","success");
             jsonObject.put("title","Personel Ekleme işlemi başarılı");
@@ -155,6 +153,29 @@ public class PersonelController {
         jsonObject.put("personeller",personeller);
         return jsonObject.toString();
     }
+    @PostMapping(value = "/personelData")
+    public @ResponseBody String loadPersonel (@RequestParam("draw") int draw,
+                                              @RequestParam("start") int start,
+                                              @RequestParam("length") int length,
+                                              @RequestParam(value = "search[value]" ,required = false) String dbQuery,
+                                              @RequestParam(value = "order[0][column]",required = false) Integer  column,
+                                              @RequestParam(value = "order[0][dir]",required = false) String order,
+                                              HttpServletRequest request,
+                                              HttpServletResponse response)
+    {
+        String columnName = null;
+        if(column != null) {
+            columnName = request.getParameter("columns[" + column + "][data]");
+        }
+        Long totalCount = personelService.getTotalCount(dbQuery);
+        JSONArray jsonArray = personelService.loadPersonel(start,length,dbQuery,columnName,order);
 
-
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("draw",draw);
+        jsonObject.put("recordsTotal",totalCount);
+        jsonObject.put("recordsFiltered",totalCount);
+        jsonObject.put("data",jsonArray);
+        jsonObject.put("columns",columnName);
+        return jsonObject.toString();
+    }
 }

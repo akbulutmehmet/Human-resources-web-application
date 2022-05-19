@@ -35,7 +35,7 @@
                    <div class="col-md-12">
                     <div class="card">
                       <div class="card-body">
-                          <table class="table table-hover table-bordered" id="dataTables">
+                          <table class="table table-hover table-bordered" id="personelTables">
                               <thead>
                               <tr>
                                   <th>İD</th>
@@ -49,36 +49,6 @@
                                   <th>İşlemler</th>
                               </tr>
                               </thead>
-                              <tbody>
-                              <c:forEach var="personel" items="${personelList}" >
-                                  <tr>
-                                      <td><c:out value=" ${personel.personelId}"></c:out></td>
-                                      <td><c:out value=" ${personel.personelAd}"></c:out></td>
-                                      <td><c:out value=" ${personel.personelSoyad}"></c:out></td>
-                                      <td><c:out value=" ${personel.personelTc}"></c:out></td>
-                                      <td>
-
-                                          <c:if test="${personel.personelCinsiyet == 1}" >
-                                              ERKEK
-                                          </c:if>
-                                          <c:if test="${personel.personelCinsiyet == 0}" >
-                                              KADIN
-                                          </c:if>
-
-                                      </td>
-                                      <td><c:out value=" ${personel.isBaslangicTarihi}"></c:out></td>
-                                      <td><c:out value=" ${personel.gorev.departman.departmanAdi}"></c:out></td>
-                                      <td><c:out value=" ${personel.gorev.gorevAdi}"></c:out></td>
-                                      <td>
-                                          <a href="${pageContext.request.contextPath}/personelGuncelle/${personel.personelId}" class="btn  btn-info" data-id="#1">GÜNCELLE</a>
-                                          <button class="btn  btn-blok btn-danger btnPersonelSil" type="button"  data-id="${personel.personelId}">SİL</button>
-                                      </td>
-                                  </tr>
-
-
-                              </c:forEach>
-
-                              </tbody>
                           </table>
                       </div>
                     </div>

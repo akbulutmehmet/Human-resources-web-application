@@ -5,6 +5,7 @@ import com.bm470.config.WebAppInitializer;
 import com.bm470.config.WebConfig;
 import com.bm470.model.Departman;
 import com.bm470.model.Personel;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -209,5 +210,16 @@ public  class PersonelControllerTest {
         JSONObject jsonObject = JSONObject.fromObject(response);
         Boolean exist = (Boolean) jsonObject.get("exist");
         Assert.assertTrue(exist);
+    }
+    @Test
+    public void loadPersonel () {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setMethod("POST");
+        request.addParameter("columns[0][data]","personelId");
+        MockHttpServletResponse responseMock = new MockHttpServletResponse();
+        String response = personelController.loadPersonel(1,0,10,"",0,"asc",request,responseMock);
+        JSONObject jsonObject = JSONObject.fromObject(response);
+        JSONArray jsonArray =(JSONArray) jsonObject.get("data");
+        Assert.assertTrue(jsonArray.size()>0);
     }
 }

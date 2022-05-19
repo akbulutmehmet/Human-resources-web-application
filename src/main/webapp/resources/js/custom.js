@@ -1,3 +1,74 @@
+$(document).on('click','.btnPersonelSil',function () {
+    $(".btnPersonelSil").click(function () {
+        let data_id = $(this).data("id");
+        let url = "personelSil";
+        Swal.fire({
+            title: 'Silmek İstediğinize Emin Misiniz?',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Sil',
+            denyButtonText: `İptal`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        personelId : data_id
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: response.icon,
+                            title: response.title,
+                            showConfirmButton: false,
+                            timer: 10000
+                        });
+
+                        if(response.exist) {
+                            window.location.href = "personelListele";
+                        }
+                    },
+                    dataType: "json"
+                });
+            } else if (result.isDenied) {
+                Swal.fire('Silme işlemi iptal edildi.', '', 'success')
+            }
+        })
+
+
+    });
+});
+$("#personelTables").DataTable(
+    {
+        serverSide : true,
+        processing: true,
+        ajax : {
+            url : 'personelData',
+            method: 'POST',
+            dataType:'JSON'
+        },
+        columns : [
+            {data : 'personelId'},
+            {data : 'personelAd'},
+            {data : 'personelSoyad'},
+            {data : 'personelTc'},
+            {data : 'personelCinsiyet'},
+            {data : 'isBaslangicTarihi'},
+            {data : 'departman'},
+            {data : 'gorev'},
+            {data : 'islemler',orderable:false},
+        ],
+        lengthMenu: [
+            [5,10,15,20,25,50,100,1000,3000,5000,10000,-1],
+            [5,10,15,20,25,50,100,1000,3000,5000,10000,'All']
+        ],
+        language: {
+            url: "//cdn.datatables.net/plug-ins/1.12.0/i18n/tr.json",
+        }
+    }
+);
 $("#dataTables").DataTable(
     {
         language: {
@@ -22,7 +93,7 @@ $("#btnIkKaydet").click(function () {
         },
         success: function (response) {
             Swal.fire({
-                position: 'center-center',
+                position: 'center',
                 icon: response.icon,
                 title: response.title,
                 showConfirmButton: false,
@@ -57,7 +128,7 @@ $("#btnIkGuncelle").click(function () {
         },
         success: function (response) {
             Swal.fire({
-                position: 'center-center',
+                position: 'center',
                 icon: response.icon,
                 title: response.title,
                 showConfirmButton: false,
@@ -94,7 +165,7 @@ $(".btnIkSil").click(function () {
                     },
                     success: function (response) {
                         Swal.fire({
-                            position: 'center-center',
+                            position: 'center',
                             icon: response.icon,
                             title: response.title,
                             showConfirmButton: false,
@@ -124,7 +195,7 @@ $("#btnDepartmanKaydet").click(function () {
         },
         success: function (response) {
             Swal.fire({
-                position: 'center-center',
+                position: 'center',
                 icon: response.icon,
                 title: response.title,
                 showConfirmButton: false,
@@ -157,7 +228,7 @@ $("#btnDepartmanGuncelle").click(function () {
         },
         success: function (response) {
             Swal.fire({
-                position: 'center-center',
+                position: 'center',
                 icon: response.icon,
                 title: response.title,
                 showConfirmButton: false,
@@ -193,7 +264,7 @@ $(".btnDepartmanSil").click(function () {
                     },
                     success: function (response) {
                         Swal.fire({
-                            position: 'center-center',
+                            position: 'center',
                             icon: response.icon,
                             title: response.title,
                             showConfirmButton: false,
@@ -225,7 +296,7 @@ $("#btnGorevKaydet").click(function () {
         },
         success: function (response) {
             Swal.fire({
-                position: 'center-center',
+                position: 'center',
                 icon: response.icon,
                 title: response.title,
                 showConfirmButton: false,
@@ -261,7 +332,7 @@ $("#btnGorevUpdate").click(function () {
         },
         success: function (response) {
             Swal.fire({
-                position: 'center-center',
+                position: 'center',
                 icon: response.icon,
                 title: response.title,
                 showConfirmButton: false,
@@ -297,7 +368,7 @@ $(".btnGorevSil").click(function () {
                 },
                 success: function (response) {
                     Swal.fire({
-                        position: 'center-center',
+                        position: 'center',
                         icon: response.icon,
                         title: response.title,
                         showConfirmButton: false,
@@ -340,7 +411,7 @@ $("#btnPersonelKaydet").click(function () {
         },
         success: function (response) {
             Swal.fire({
-                position: 'center-center',
+                position: 'center',
                 icon: response.icon,
                 title: response.title,
                 showConfirmButton: false,
@@ -390,7 +461,7 @@ $("#btnPersonelGuncelle").click(function () {
         },
         success: function (response) {
             Swal.fire({
-                position: 'center-center',
+                position: 'center',
                 icon: response.icon,
                 title: response.title,
                 showConfirmButton: false,
@@ -413,46 +484,8 @@ $("#btnPersonelGuncelle").click(function () {
 
 
 });
-$(".btnPersonelSil").click(function () {
-    let data_id = $(this).data("id");
-    let url = "personelSil";
-    Swal.fire({
-        title: 'Silmek İstediğinize Emin Misiniz?',
-        showDenyButton: true,
-        showCancelButton: false,
-        confirmButtonText: 'Sil',
-        denyButtonText: `İptal`,
-    }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: {
-                    personelId : data_id
-                },
-                success: function (response) {
-                    Swal.fire({
-                        position: 'center-center',
-                        icon: response.icon,
-                        title: response.title,
-                        showConfirmButton: false,
-                        timer: 10000
-                    });
-
-                    if(response.exist) {
-                        window.location.href = "personelListele";
-                    }
-                },
-                dataType: "json"
-            });
-        } else if (result.isDenied) {
-            Swal.fire('Silme işlemi iptal edildi.', '', 'success')
-        }
-    })
 
 
-});
 $("#btnIzinliPersonelEkle").click(function () {
     let url = "izinliPersonelKaydet";
     let personelId = $("#personelId").val();
@@ -469,7 +502,7 @@ $("#btnIzinliPersonelEkle").click(function () {
         },
         success: function (response) {
             Swal.fire({
-                position: 'center-center',
+                position: 'center',
                 icon: response.icon,
                 title: response.title,
                 showConfirmButton: false,
@@ -507,7 +540,7 @@ $(".btnIzinliPersonelSil").click(function () {
                 },
                 success: function (response) {
                     Swal.fire({
-                        position: 'center-center',
+                        position: 'center',
                         icon: response.icon,
                         title: response.title,
                         showConfirmButton: false,
@@ -546,7 +579,7 @@ $("#btnIzinliPersonelGuncelle").click(function () {
         },
         success: function (response) {
             Swal.fire({
-                position: 'center-center',
+                position: 'center',
                 icon: response.icon,
                 title: response.title,
                 showConfirmButton: false,
@@ -612,7 +645,7 @@ function tcKontrol(val) {
         success: function (response) {
             if(!response.exist) {
                 Swal.fire({
-                    position: 'center-center',
+                    position: 'center',
                     icon: response.icon,
                     title: response.title,
                     showConfirmButton: false,
@@ -622,7 +655,7 @@ function tcKontrol(val) {
             }
             else {
                 Swal.fire({
-                    position: 'center-center',
+                    position: 'center',
                     icon: response.icon,
                     title: response.title,
                     showConfirmButton: false,

@@ -68,7 +68,7 @@
                 },
                 success: function (response) {
                     Swal.fire({
-                        position: 'center-center',
+                        position: 'center',
                         icon: response.icon,
                         title: response.title,
                         showConfirmButton: true,
@@ -87,7 +87,7 @@
         }
         else {
             Swal.fire({
-                position: 'center-center',
+                position: 'center',
                 icon: 'error',
                 title: 'Zorunlu alanları doldurunuz',
                 showConfirmButton: true,

@@ -26,7 +26,7 @@ public class Personel implements Serializable {
     @Column(name="personel_tc",nullable = false,unique = true)
     private Long personelTc;
 
-    @Column(name="personel_cinsiyet",nullable = false)
+    @Column(name="personel_cinsiyet",nullable = false,length = 1)
     private Long personelCinsiyet;
 
 

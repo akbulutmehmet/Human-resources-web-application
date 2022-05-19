@@ -17,7 +17,7 @@ public class Departman implements Serializable{
     private String departmanAdi;
 
 
-    @OneToMany(mappedBy = "departman",fetch = FetchType.EAGER,cascade = CascadeType.MERGE,orphanRemoval = true)
+    @OneToMany(mappedBy = "departman",fetch = FetchType.LAZY,cascade = CascadeType.MERGE,orphanRemoval = true)
     private List<Gorev> gorevList;
 
     public List<Gorev> getGorevList() {

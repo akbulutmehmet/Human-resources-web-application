@@ -4,6 +4,9 @@ import com.bm470.dao.MainDAO;
 import com.bm470.dao.PersonelDAO;
 import com.bm470.model.Gorev;
 import com.bm470.model.Personel;
+import com.bm470.util.DateConvert;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -114,4 +117,38 @@ public class PersonelService {
         }
         return exist;
     }
+
+    public Long getTotalCount (String dbQuery) {
+        Long totalCount = personelDAO.getTotalCount(dbQuery);
+        return totalCount;
+    }
+    public JSONArray loadPersonel (int start,int length,String dbQuery,String columnName,String order) {
+        List<Personel> personelList = personelDAO.loadPersonel(start,length,dbQuery,columnName,order);
+        JSONArray jsonArray = new JSONArray();
+        DateConvert dateConvert = new DateConvert();
+        for (int i=0;i<personelList.size();i++) {
+            JSONObject jsonObject = new JSONObject();
+            Personel personel = personelList.get(i);
+            jsonObject.put("personelId",personel.getPersonelId());
+            jsonObject.put("personelAd",personel.getPersonelAd());
+            jsonObject.put("personelSoyad",personel.getPersonelSoyad());
+            jsonObject.put("personelTc",personel.getPersonelTc());
+            String cinsiyet = (personel.getPersonelCinsiyet() == 1) ? "ERKEK" : "KADIN";
+            jsonObject.put("personelCinsiyet",cinsiyet);
+            dateConvert.setDate(personel.getIsBaslangicTarihi());
+            jsonObject.put("isBaslangicTarihi",dateConvert.getDateString());
+            jsonObject.put("departman",personel.getGorev().getDepartman().getDepartmanAdi());
+            jsonObject.put("gorev",personel.getGorev().getGorevAdi());
+            String islemler = "";
+            islemler += "<a href=\"/ilerijava/personelGuncelle/"+ personel.getPersonelId()
+                    + " \"  class=\"btn  btn-info \"  data-id=\"\">GÜNCELLE</a>";
+            islemler += "<button type=\"button\" data-id=\""+ personel.getPersonelId()
+                    + " \"  class=\"btn  btn-blok btn-danger btnPersonelSil \">SİL</button>";
+
+            jsonObject.put("islemler",islemler);
+            jsonArray.add(i,jsonObject);
+        }
+        return jsonArray;
+    }
+
 }
