@@ -189,7 +189,7 @@ public  class PersonelControllerTest {
 
     @Test
     public void personelSil() {
-        String response = personelController.personelSil(7L);
+        String response = personelController.personelSil(6L);
         JSONObject jsonObject = JSONObject.fromObject(response);
         Boolean exist = (Boolean) jsonObject.get("exist");
         Assert.assertTrue(exist);
@@ -197,7 +197,7 @@ public  class PersonelControllerTest {
 
     @Test
     public void personelGetir() {
-        String response = personelController.personelGetir(4L);
+        String response = personelController.personelGetir(7L);
         JSONObject jsonObject = JSONObject.fromObject(response);
         String personeller = (String) jsonObject.get("personeller");
         Boolean exist = (!personeller.equals("") && personeller != null);
@@ -206,7 +206,7 @@ public  class PersonelControllerTest {
 
     @Test
     public void personelTcKontrol() {
-        String response = personelController.personelTcKontrol(18512818914L);
+        String response = personelController.personelTcKontrol(26236686436L);
         JSONObject jsonObject = JSONObject.fromObject(response);
         Boolean exist = (Boolean) jsonObject.get("exist");
         Assert.assertTrue(exist);

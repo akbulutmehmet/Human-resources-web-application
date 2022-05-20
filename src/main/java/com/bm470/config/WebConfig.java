@@ -1,14 +1,14 @@
 package com.bm470.config;
 
+import com.bm470.interceptor.AdaySessionInterceptor;
 import com.bm470.interceptor.LogInterceptor;
-import com.bm470.interceptor.SessionInterceptor;
+import com.bm470.interceptor.InsankaynaklariSessionInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.PathResourceResolver;
@@ -61,8 +61,17 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-      registry.addInterceptor(new SessionInterceptor())
-              .addPathPatterns("/*").excludePathPatterns("/").excludePathPatterns("/loginKontrol");
+      registry.addInterceptor(new InsankaynaklariSessionInterceptor())
+              .addPathPatterns("/*").
+              excludePathPatterns("/").
+              excludePathPatterns("/loginKontrol").
+              excludePathPatterns("/aday/*").excludePathPatterns("/logout");
+      registry.addInterceptor(new AdaySessionInterceptor()).
+              addPathPatterns("/aday/*").
+              excludePathPatterns("/aday/login").
+              excludePathPatterns("/aday/loginKontrol").excludePathPatterns("/aday/").
+              excludePathPatterns("/aday/register").excludePathPatterns("/aday/adayTcKontrol").
+              excludePathPatterns("/aday/adayRegister");
             registry.addInterceptor(new LogInterceptor()).addPathPatterns("/*");
     }
 

@@ -43,7 +43,9 @@ public class AppConfig {
         props.put(C3P0_MAX_STATEMENTS, env.getProperty("hibernate.c3p0.max_statements"));
         props.put(C3P0_CONFIG_PREFIX + ".initialPoolSize", env.getProperty("hibernate.c3p0.initialPoolSize"));
         factoryBean.setHibernateProperties(props);
-        factoryBean.setAnnotatedClasses(InsanKaynaklari.class, Departman.class, Gorev.class, Personel.class, IzinliPersonel.class);
+        factoryBean.setAnnotatedClasses(InsanKaynaklari.class, Departman.class, Gorev.class, Personel.class, IzinliPersonel.class
+        ,Aday.class
+        );
         return factoryBean;
     }
 

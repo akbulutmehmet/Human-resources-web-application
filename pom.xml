@@ -4,29 +4,18 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.bm470</groupId>
-  <artifactId>ilerijava</artifactId>
+  <groupId>com.mehmet.akbulut</groupId>
+  <artifactId>bitirmeprojesi</artifactId>
   <version>1.0</version>
   <packaging>war</packaging>
   <developers>
     <developer>
-      <name>Beyza GÖBEL</name>
-      <url>https://github.com/beyzagobel</url>
-    </developer>
-    <developer>
       <name>Mehmet AKBULUT</name>
       <url>https://github.com/akbulutmehmet</url>
     </developer>
-    <developer>
-      <name>Zekiye YETER</name>
-      <url></url>
-    </developer>
-    <developer>
-      <name>Muhammed Ali YILDIZ</name>
-      <url></url>
-    </developer>
+
   </developers>
-  <name>ilerijava Maven Webapp</name>
+  <name>BitirmeProjesi Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 

@@ -1,7 +1,9 @@
 package com.bm470.web;
 
 
+import com.bm470.model.Aday;
 import com.bm470.model.InsanKaynaklari;
+import com.bm470.service.AdayService;
 import com.bm470.service.InsanKaynaklariService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,9 @@ import com.bm470.util.HashUtil;
 public class LoginController {
 
     @Autowired
-     private InsanKaynaklariService insanKaynaklariService;
-
+     private AdayService adayService;
+    @Autowired
+    private InsanKaynaklariService insanKaynaklariService;
     @GetMapping(value = "/")
     public String login(HttpServletRequest request,HttpServletResponse response) throws Exception{
         HttpSession session = request.getSession();
@@ -30,12 +33,65 @@ public class LoginController {
         return "login";
 
     }
-    @GetMapping("/logout")
-    public void logout (HttpServletRequest request,HttpServletResponse response) throws Exception {
+
+    @GetMapping(value = {"/aday/login","/aday","/aday/"})
+    public String adayLogin(HttpServletRequest request,HttpServletResponse response) throws Exception{
         HttpSession session = request.getSession();
-        session.invalidate();
+        Object aday = session.getAttribute("aday");
+        if(aday != null) {
+            response.sendRedirect(request.getContextPath() + "/aday/adayIslemleri");
+        }
+        return "adayLogin";
+    }
+    @PostMapping(value = "/aday/loginKontrol")
+    public @ResponseBody  String adayLoginKontrol(@RequestParam("email") String email, @RequestParam("password") String password, HttpServletRequest req, HttpServletResponse res) throws Exception{
+        JSONObject jsonObject = new JSONObject();
+        /**
+         * İstek parametrelerinin boş kontrolü
+         */
+        if (email.equals("") || password.equals("")) {
+            jsonObject.put("success",true);
+            jsonObject.put("exist",false);
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Zorunlu alanları doldurunuz");
+            return jsonObject.toString();
+        }
+        HashUtil hashUtil = new HashUtil(password);
+        String hashPassword = hashUtil.md5();
+
+        Aday aday = adayService.loginKontrol(email,hashPassword);
+        Boolean exists = false;
+        if(aday != null) {
+            exists = true;
+        }
+
+        if(exists){
+            HttpSession session = req.getSession();
+            session.setAttribute("aday",aday);
+            session.setAttribute("adsoyad",aday.getAdSoyad());
+            jsonObject.put("icon","success");
+            jsonObject.put("title","Başarıyla giriş yaptınız");
+        }
+        else {
+            jsonObject.put("icon","error");
+            jsonObject.put("title","Hatalı giriş yaptınız");
+        }
+
+        jsonObject.put("success", true);
+        jsonObject.put("exists", exists);
+
+
+        return jsonObject.toString();
+
+    }
+
+    @GetMapping("/logout")
+    public void insankaynaklariLogout (HttpServletRequest request,HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+       session.invalidate();
         response.sendRedirect(request.getContextPath());
     }
+
     @PostMapping(value = "/loginKontrol")
     public @ResponseBody  String loginKontrol(@RequestParam("email") String email, @RequestParam("password") String password, HttpServletRequest req, HttpServletResponse res) throws Exception{
         JSONObject jsonObject = new JSONObject();

@@ -41,7 +41,7 @@ public class PersonelDAOTest {
 
     @Test
     public void personelGetir() {
-        List<Personel> personelList = personelDAO.personelGetir(4L);
+        List<Personel> personelList = personelDAO.personelGetir(7L);
         Assert.assertTrue(personelList.size()>0);
     }
 
