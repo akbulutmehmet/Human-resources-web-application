@@ -12,24 +12,24 @@ public class AdayEgitim implements Serializable {
     @Column(name = "aday_egitim_id")
     private Long adayEgitimId;
 
-    @Column(name = "egitim_turu")
+    @Column(name = "egitim_turu",nullable = false)
     private String egitimTuru;
 
-    @Column(name = "okul_adi")
+    @Column(name = "okul_adi",nullable = false)
     private String okulAdi;
 
     @Column(name = "bolum_adi",nullable = false)
     private String bolumAdi;
 
-    @Column(name = "baslangic_tarihi")
+    @Column(name = "baslangic_tarihi",nullable = false)
     @Temporal(TemporalType.DATE)
     private Date baslangicTarihi;
 
-    @Column(name = "bitis_tarihi",nullable = false)
+    @Column(name = "bitis_tarihi",nullable = true)
     @Temporal(TemporalType.DATE)
     private Date bitisTarihi;
 
-    @Column(name = "file_name",nullable = false)
+    @Column(name = "file_name",nullable = true)
     private String fileName;
 
     @ManyToOne

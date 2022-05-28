@@ -44,6 +44,12 @@ public class WebConfig implements WebMvcConfigurer {
                 .setCachePeriod(3600)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
+        registry.addResourceHandler("/files/**")
+                .addResourceLocations("file:///C:/files/")
+                .setCachePeriod(3600) // saniye
+                .resourceChain(true) // cacheResources parametresi
+                .addResolver(new PathResourceResolver());
+
     }
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -80,9 +86,9 @@ public class WebConfig implements WebMvcConfigurer {
     }
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver getCommonsMultipartResolver() {
-CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-multipartResolver.setMaxUploadSize(20971520); // 20MB
-multipartResolver.setMaxInMemorySize(1048576); // 1MB
-return multipartResolver;
+    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+    multipartResolver.setMaxUploadSize(20971520);
+    multipartResolver.setMaxInMemorySize(1048576);
+    return multipartResolver;
     }
 }

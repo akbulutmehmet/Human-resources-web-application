@@ -16,20 +16,20 @@ public class AdayIsTecrube implements Serializable {
     @Column(name = "gorev_adi")
     private String gorevAdi;
 
-    @Column(name = "gorevli_adi",nullable = false)
+    @Column(name = "gorevli_adi",nullable = true)
     private String gorevliAdi;
 
-    @Column(name = "gorevli_unvan",nullable = false)
+    @Column(name = "gorevli_unvan",nullable = true)
     private String gorevliUnvan;
 
-    @Column(name = "gorevli_telefon",nullable = false)
+    @Column(name = "gorevli_telefon",nullable = true)
     private Long gorevliTelefon;
 
-    @Column(name = "is_baslangic_tarihi")
+    @Column(name = "is_baslangic_tarihi",nullable = false)
     @Temporal(TemporalType.DATE)
     private Date isBaslangicTarihi;
 
-    @Column(name = "is_bitis_tarihi",nullable = false)
+    @Column(name = "is_bitis_tarihi",nullable = true)
     @Temporal(TemporalType.DATE)
     private Date isBitisTarihi;
 

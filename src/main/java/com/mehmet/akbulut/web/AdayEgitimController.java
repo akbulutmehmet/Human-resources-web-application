@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -28,7 +29,7 @@ public class AdayEgitimController {
     @Autowired
     private AdayService adayService;
 
-    private final String upload_path="/resources/diplomalar/";
+    private final String upload_path="C:/files/diplomalar/";
     @GetMapping("/aday/adayEgitimListele")
     public String adayEgitimListele (Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute("title","İş Tecrübeleriniz");
@@ -80,30 +81,25 @@ public class AdayEgitimController {
         return jsonObject.toString();
     }
     @PostMapping("/aday/adayEgitimKaydet")
-    public @ResponseBody String adayEgitimKaydet (@RequestParam(value = "adayEgitimId",required = false) Long adayEgitimId,
+    public void adayEgitimKaydet (@RequestParam(value = "adayEgitimId",required = false) Long adayEgitimId,
                                                        @RequestParam("okulAdi") String okulAdi,
                                                        @RequestParam("egitimTuru") String egitimTuru,
                                                        @RequestParam(value = "bolumAdi",required = false) String bolumAdi,
                                                        @RequestParam("baslangicTarihi") String baslangicTarihi,
                                                        @RequestParam(value = "bitisTarihi",required = false) String bitisTarihi,
                                                        @RequestParam(value = "diplomaFile",required = false) CommonsMultipartFile diplomaFile,
-                                                       HttpServletRequest request){
-        JSONObject jsonObject = new JSONObject();
+                                                       HttpServletRequest request,HttpServletResponse response) throws NoHandlerFoundException, IOException {
         Boolean exist = false;
         if(okulAdi.equals("") ||
                 egitimTuru.equals("") ||
                 baslangicTarihi.equals("")
 
         ) {
-            jsonObject.put("success",true);
-            jsonObject.put("exist",exist);
-            jsonObject.put("icon","error");
-            jsonObject.put("title","Zorunlu alanları doldurunuz");
-            return jsonObject.toString();
+            throw new NoHandlerFoundException(request.getMethod(),request.getRequestURI(),null);
         }
         Aday aday =(Aday) request.getSession().getAttribute("aday");
         String fileName="";
-        if(diplomaFile.getSize()>0) {
+        if(!diplomaFile.isEmpty() || diplomaFile.getSize()>0L) {
             BufferedOutputStream bufferedOutputStream = null;
             String path = request.getServletContext().getRealPath(upload_path);
             String originalFilename = diplomaFile.getOriginalFilename();
@@ -111,7 +107,7 @@ public class AdayEgitimController {
             try {
                 bufferedOutputStream = new BufferedOutputStream(new
                         FileOutputStream(
-                        new File(path + File.separator + originalFilename)
+                        new File(upload_path + File.separator + originalFilename)
                 )
                 );
                 bufferedOutputStream.write(bytes);
@@ -125,15 +121,12 @@ public class AdayEgitimController {
 
         exist = adayEgitimService.adayEgitimKaydet(adayEgitimId,egitimTuru,okulAdi,bolumAdi,baslangicTarihi,bitisTarihi,fileName,aday.getAdayId());
         if(exist) {
-            jsonObject.put("icon","success");
-            jsonObject.put("title","İş Tecrübesi ekleme işlemi başarılı");
+            response.sendRedirect(request.getServletContext().getContextPath() + "/aday/adayEgitimListele");
         }
         else {
-            jsonObject.put("icon","error");
-            jsonObject.put("title","Hata");
+            throw new NoHandlerFoundException(request.getMethod(),request.getRequestURI(),null);
+
         }
-        jsonObject.put("success",true);
-        jsonObject.put("exist",exist);
-        return jsonObject.toString();
+
     }
 }

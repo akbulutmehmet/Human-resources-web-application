@@ -22,7 +22,7 @@
 
     </li>
     <li class="nav-item">
-      <a href="${pageContext.request.contextPath}/aday/egitimBilgileri" class="nav-link ">
+      <a href="${pageContext.request.contextPath}/aday/adayEgitimListele" class="nav-link ">
         <i class="nav-icon fas fa-tachometer-alt"></i>
         <p>
           Eğitim Bilgilerim
@@ -39,14 +39,6 @@
       </a>
 
     </li>
-    <li class="nav-item">
-      <a href="${pageContext.request.contextPath}/aday/isIlanlari" class="nav-link ">
-        <i class="nav-icon fas fa-user-alt"></i>
-        <p>
-          İş ilanları
-        </p>
-      </a>
 
-    </li>
   </ul>
 </nav>

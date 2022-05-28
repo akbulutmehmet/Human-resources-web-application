@@ -38,17 +38,19 @@ public class AdayEgitimService {
         Aday aday = adayService.adayLoad(adayId);
         DateConvert dateConvert = new DateConvert(baslangicTarihi);
         Date baslangicTarihidate = dateConvert.getDate();
-        Date bitisTarihiDate = null;
+     //   Date bitisTarihiDate = null;
         if(!bitisTarihi.equals("")) {
             dateConvert =  new DateConvert(bitisTarihi);
-            bitisTarihiDate = dateConvert.getDate();
+          Date  bitisTarihiDate = dateConvert.getDate();
+            adayEgitim.setBitisTarihi(bitisTarihiDate);
         }
         adayEgitim.setBolumAdi(bolumAdi);
         adayEgitim.setOkulAdi(okulAdi);
         adayEgitim.setEgitimTuru(egitimTuru);
         adayEgitim.setBaslangicTarihi(baslangicTarihidate);
-        adayEgitim.setBitisTarihi(bitisTarihiDate);
-        adayEgitim.setFileName(fileName);
+        if(!fileName.equals("")) {
+            adayEgitim.setFileName(fileName);
+        }
         adayEgitim.setAday(aday);
         Boolean exist = mainDAO.saveOrUpdateObject(adayEgitim);
         return exist;

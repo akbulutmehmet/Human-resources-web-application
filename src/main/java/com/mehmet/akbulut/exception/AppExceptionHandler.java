@@ -1,3 +1,4 @@
+
 package com.mehmet.akbulut.exception;
 
 import org.slf4j.Logger;
