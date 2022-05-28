@@ -29,8 +29,8 @@ public class AdayDAO {
         Root<Aday> root = criteriaQuery.from(Aday.class);
         Predicate predicateAdayEposta = criteriaBuilder.equal((root.get("adayEposta")),email);
         Predicate predicateAdaySifre = criteriaBuilder.equal((root.get("adaySifre")),sifre);
-
-        criteriaQuery.select(root).where(criteriaBuilder.and(predicateAdaySifre,predicateAdaySifre));
+        Predicate predicate = criteriaBuilder.and(predicateAdayEposta,predicateAdaySifre);
+        criteriaQuery.select(root).where(predicate);
 
         Query<Aday> query = currentSession.createQuery(criteriaQuery);
         Aday aday = null;

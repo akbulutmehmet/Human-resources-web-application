@@ -62,8 +62,24 @@ public class AdayService {
         return exist;
     }
 
-    private Aday adayLoad(Long adayId) {
+    public Aday adayLoad(Long adayId) {
         Aday aday =  (Aday) mainDAO.loadObject(Aday.class,adayId);
         return aday;
+    }
+
+    @Transactional(readOnly = false)
+    public Boolean adayGuncelle(Long adayId, String adayAd, String adaySoyad, Long adayCinsiyet, String adayEposta, String adaySifre, String adayDogumTarihi) {
+        Aday aday = adayLoad(adayId);
+        aday.setAdayAd(adayAd);
+        aday.setAdayCinsiyet(adayCinsiyet);
+        aday.setAdaySoyad(adaySoyad);
+        aday.setAdayEposta(adayEposta);
+        DateConvert dateConvert = new DateConvert(adayDogumTarihi);
+        Date adayDogum = dateConvert.getDate();
+        aday.setAdayDogumTarihi(adayDogum);
+        if(!aday.getAdaySifre().equals(adaySifre)) {
+            aday.setAdaySifre(adaySifre);
+        }
+        return mainDAO.saveOrUpdateObject(aday);
     }
 }

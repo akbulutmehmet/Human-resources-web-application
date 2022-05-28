@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -72,10 +73,16 @@ public class WebConfig implements WebMvcConfigurer {
               excludePathPatterns("/aday/loginKontrol").excludePathPatterns("/aday/").
               excludePathPatterns("/aday/register").excludePathPatterns("/aday/adayTcKontrol").
               excludePathPatterns("/aday/adayRegister");
-            registry.addInterceptor(new LogInterceptor()).addPathPatterns("/*");
+
+
+        registry.addInterceptor(new LogInterceptor()).addPathPatterns("/*");
+
     }
-
-
-
-
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver getCommonsMultipartResolver() {
+CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+multipartResolver.setMaxUploadSize(20971520); // 20MB
+multipartResolver.setMaxInMemorySize(1048576); // 1MB
+return multipartResolver;
+    }
 }

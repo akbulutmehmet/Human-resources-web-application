@@ -3,6 +3,7 @@ package com.mehmet.akbulut.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "aday")
@@ -38,6 +39,28 @@ public class Aday implements Serializable {
     @Column(name="aday_dogum_tarihi",nullable = false)
     @Temporal(TemporalType.DATE)
     private Date adayDogumTarihi;
+
+    @OneToMany(mappedBy = "aday",fetch = FetchType.LAZY,cascade = CascadeType.MERGE,orphanRemoval = true)
+    private List<AdayIsTecrube> adayIsTecrubeList;
+
+    @OneToMany(mappedBy = "aday",fetch = FetchType.LAZY,cascade = CascadeType.MERGE,orphanRemoval = true)
+    private List<AdayEgitim> adayEgitimList;
+
+    public List<AdayEgitim> getAdayEgitimList() {
+        return adayEgitimList;
+    }
+
+    public void setAdayEgitimList(List<AdayEgitim> adayEgitimList) {
+        this.adayEgitimList = adayEgitimList;
+    }
+
+    public List<AdayIsTecrube> getAdayIsTecrubeList() {
+        return adayIsTecrubeList;
+    }
+
+    public void setAdayIsTecrubeList(List<AdayIsTecrube> adayIsTecrubeList) {
+        this.adayIsTecrubeList = adayIsTecrubeList;
+    }
 
     public void setAdSoyad(String adSoyad) {
         this.adSoyad = adSoyad;

@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="number" class="form-control" id="adayTc" name="adaySoyad" placeholder="Tc" onfocusout="adayTcKontrol(this.value)" data-url="${pageContext.request.contextPath}/aday/adayTcKontrol" required>
+                    <input type="number" class="form-control" maxlength="11"  oninput="maxLengthCheck(this)" id="adayTc" name="adayTc" placeholder="Tc" onfocusout="adayTcKontrol(this.value)" data-url="${pageContext.request.contextPath}/aday/adayTcKontrol" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>

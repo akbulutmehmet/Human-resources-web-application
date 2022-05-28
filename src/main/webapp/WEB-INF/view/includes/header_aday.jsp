@@ -32,7 +32,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="${pageContext.request.contextPath}" class="brand-link">
+    <a href="${pageContext.request.contextPath}/aday/" class="brand-link">
       <span class="brand-text font-weight-light">Aday PANELİ</span>
     </a>
 

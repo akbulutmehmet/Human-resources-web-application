@@ -11,12 +11,12 @@
 
     </li>
     <li class="nav-item">
-      <a href="${pageContext.request.contextPath}/aday/adayIsbilgileri" class="nav-link"
+      <a href="${pageContext.request.contextPath}/aday/adayIsTecrubeListele" class="nav-link"
 
       >
         <i class="nav-icon fas fa-people-carry"></i>
         <p>
-          İş Bilgilerim
+          İş Tecrübelerim
         </p>
       </a>
 
