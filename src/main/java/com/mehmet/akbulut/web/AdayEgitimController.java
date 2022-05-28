@@ -32,7 +32,7 @@ public class AdayEgitimController {
     private final String upload_path="C:/files/diplomalar/";
     @GetMapping("/aday/adayEgitimListele")
     public String adayEgitimListele (Model model, HttpServletRequest request, HttpServletResponse response) {
-        model.addAttribute("title","İş Tecrübeleriniz");
+        model.addAttribute("title","Eğitim Bilgileriniz");
         Aday aday = (Aday) request.getSession().getAttribute("aday");
 
         List<AdayEgitim> adayEgitimList = adayEgitimService.adayEgitimListele(aday);

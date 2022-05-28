@@ -25,7 +25,7 @@ $("#dataTables").DataTable(
     }
 );
 
-const base_url = "http://localhost:9091/bitirmeprojesi";
+const base_url = "http://localhost:9090/bitirmeprojesi";
 $(".btnAdayEgitimSil").click(function () {
     let data_id = $(this).data("id");
     let url = base_url + "/aday/adayEgitimSil";

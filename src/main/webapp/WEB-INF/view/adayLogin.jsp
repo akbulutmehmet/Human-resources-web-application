@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Aday | Giriş Paneli</title>
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/icon.png">
+
     <%@include file="includes/style.jsp"%>
 </head>
 <body class="hold-transition login-page">

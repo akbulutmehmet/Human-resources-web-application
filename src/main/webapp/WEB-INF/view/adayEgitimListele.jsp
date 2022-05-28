@@ -18,7 +18,7 @@
                            <div class="col-6">
                                <a href="${pageContext.request.contextPath}/aday/adayEgitimEkle" class="btn btn-outline-info m-auto ">
                                    <i class="fa fa-plus"></i>
-                                   YENİ İŞ TECRÜBESİ EKLE</a>
+                                   YENİ EĞİTİM EKLE</a>
                            </div>
                        </div>
                     </div><!-- /.col -->
