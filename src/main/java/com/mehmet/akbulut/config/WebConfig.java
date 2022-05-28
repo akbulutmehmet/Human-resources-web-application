@@ -46,8 +46,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResolver(new PathResourceResolver());
         registry.addResourceHandler("/files/**")
                 .addResourceLocations("file:///C:/files/")
-                .setCachePeriod(3600) // saniye
-                .resourceChain(true) // cacheResources parametresi
+                .setCachePeriod(3600)
+                .resourceChain(true)
                 .addResolver(new PathResourceResolver());
 
     }
@@ -72,7 +72,7 @@ public class WebConfig implements WebMvcConfigurer {
               .addPathPatterns("/*").
               excludePathPatterns("/").
               excludePathPatterns("/loginKontrol").
-              excludePathPatterns("/aday/*").excludePathPatterns("/logout");
+              excludePathPatterns("/aday/*").excludePathPatterns("/logout").addPathPatterns("/adayDetay/*");
       registry.addInterceptor(new AdaySessionInterceptor()).
               addPathPatterns("/aday/*").
               excludePathPatterns("/aday/login").

@@ -1,6 +1,12 @@
 package com.mehmet.akbulut.web;
 
 import com.mehmet.akbulut.model.Aday;
+import com.mehmet.akbulut.model.AdayEgitim;
+import com.mehmet.akbulut.model.AdayIsTecrube;
+import com.mehmet.akbulut.model.AdaySerftifika;
+import com.mehmet.akbulut.service.AdayEgitimService;
+import com.mehmet.akbulut.service.AdayIsTecrubeService;
+import com.mehmet.akbulut.service.AdaySerftifikaService;
 import com.mehmet.akbulut.service.AdayService;
 import com.mehmet.akbulut.util.HashUtil;
 import com.mehmet.akbulut.util.TcCheck;
@@ -8,18 +14,25 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 public class AdayController {
     @Autowired
     private AdayService adayService;
+
+    @Autowired
+    private AdayEgitimService adayEgitimService;
+
+    @Autowired
+    private AdayIsTecrubeService adayIsTecrubeService;
+
+    @Autowired
+    private AdaySerftifikaService adaySerftifikaService;
     @PostMapping("/aday/adayGuncelle")
     public @ResponseBody String AdayGuncelle (@RequestParam(value = "adayId") Long adayId,
                                               @RequestParam("adayAd") String adayAd,
@@ -136,5 +149,30 @@ public class AdayController {
         jsonObject.put("icon","success");
         jsonObject.put("title","Girdiğiniz TC Doğru");
         return jsonObject.toString();
+    }
+
+
+    @GetMapping("/adayListele")
+    public String adayListele (Model model) {
+        List<Aday> adayList = adayService.adayListele();
+        model.addAttribute("adayList",adayList);
+
+        return "adayListele";
+    }
+
+    @GetMapping("/adayDetay/{id}")
+    public String adayDetay (@PathVariable("id") Long adayId,Model model) {
+        Aday aday = adayService.adayLoad(adayId);
+
+        List<AdayEgitim> adayEgitimList = adayEgitimService.adayEgitimListele(aday);
+        List<AdayIsTecrube> adayIsTecrubeList = adayIsTecrubeService.adayIsTecrubeListele(aday);
+        List<AdaySerftifika> adaySerftifikaList = adaySerftifikaService.adaySerftikaListele(aday);
+        model.addAttribute("title","Aday Detay");
+        model.addAttribute("aday",aday);
+        model.addAttribute("adayIsTecrubeList",adayIsTecrubeList);
+        model.addAttribute("adayEgitimList",adayEgitimList);
+        model.addAttribute("adaySerftifikaList",adaySerftifikaList);
+
+        return "adayDetay";
     }
 }

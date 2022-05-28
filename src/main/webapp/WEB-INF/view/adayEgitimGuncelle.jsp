@@ -32,7 +32,7 @@
                  <label for="egitimTuru">Eğitim Türünü Seçiniz</label>
                  <select class="form-control" name="egitimTuru" id="egitimTuru" required>
                    <c:choose>
-                     <c:when test="${adayEgitim.egitimTuru.equals('UNİVERSİTE')}">
+                     <c:when test="${adayEgitim.egitimTuru.equals('ÜNİVERSİTE')}">
                        <option value="ÜNİVERSİTE" selected>ÜNİVERSİTE</option>
                        <option value="YÜKSEKLİSANS">YÜKSEK LİSANS</option>
                        <option value="LİSE">LİSE</option>

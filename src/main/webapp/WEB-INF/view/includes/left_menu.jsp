@@ -40,6 +40,14 @@
 
     </li>
     <li class="nav-item">
+      <a href="${pageContext.request.contextPath}/adayListele" class="nav-link ">
+        <i class="nav-icon fas fa-user-alt"></i>
+        <p>
+          Aday İşlemleri
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
       <a href="${pageContext.request.contextPath}/insanKaynaklariListele" class="nav-link ">
         <i class="nav-icon fas fa-user-alt"></i>
         <p>

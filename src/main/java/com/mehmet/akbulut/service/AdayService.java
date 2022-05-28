@@ -82,4 +82,9 @@ public class AdayService {
         }
         return mainDAO.saveOrUpdateObject(aday);
     }
+
+    public List<Aday> adayListele() {
+        List<Aday> adayList = adayDAO.adayListele();
+        return adayList;
+    }
 }

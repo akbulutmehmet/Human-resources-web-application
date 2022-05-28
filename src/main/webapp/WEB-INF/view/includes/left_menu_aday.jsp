@@ -31,7 +31,7 @@
 
     </li>
     <li class="nav-item">
-      <a href="${pageContext.request.contextPath}/aday/serftikaBilgileri" class="nav-link ">
+      <a href="${pageContext.request.contextPath}/aday/adaySerftifikaListele" class="nav-link ">
         <i class="nav-icon fas fa-user-md"></i>
         <p>
           Serftika Bilgilerim

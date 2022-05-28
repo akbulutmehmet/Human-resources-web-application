@@ -54,4 +54,16 @@ public class AdayDAO {
         List<Long> adayTcList = query.getResultList();
         return adayTcList;
     }
+
+    public List<Aday> adayListele() {
+        Session currentSession = getCurrentSession();
+        CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
+        CriteriaQuery<Aday> criteriaQuery = criteriaBuilder.createQuery(Aday.class);
+        Root<Aday> root = criteriaQuery.from(Aday.class);
+
+        criteriaQuery.select(root);
+        Query<Aday> query = currentSession.createQuery(criteriaQuery);
+        List<Aday> adayList = query.getResultList();
+        return adayList;
+    }
 }

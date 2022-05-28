@@ -46,6 +46,17 @@ public class Aday implements Serializable {
     @OneToMany(mappedBy = "aday",fetch = FetchType.LAZY,cascade = CascadeType.MERGE,orphanRemoval = true)
     private List<AdayEgitim> adayEgitimList;
 
+    @OneToMany(mappedBy = "aday",fetch = FetchType.LAZY,cascade = CascadeType.MERGE,orphanRemoval = true)
+    private List<AdaySerftifika> adaySerftifikaList;
+
+    public List<AdaySerftifika> getAdaySerftifikaList() {
+        return adaySerftifikaList;
+    }
+
+    public void setAdaySerftifikaList(List<AdaySerftifika> adaySerftifikaList) {
+        this.adaySerftifikaList = adaySerftifikaList;
+    }
+
     public List<AdayEgitim> getAdayEgitimList() {
         return adayEgitimList;
     }

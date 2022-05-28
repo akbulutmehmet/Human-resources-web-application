@@ -65,6 +65,45 @@ $(".btnAdayEgitimSil").click(function () {
     })
 
 });
+$(".btnAdaySertifikaSil").click(function () {
+    let data_id = $(this).data("id");
+    let url = base_url + "/aday/adaySerftifikaSil";
+    Swal.fire({
+        title: 'Silmek İstediğinize Emin Misiniz?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Sil',
+        denyButtonText: `İptal`,
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    adaySerftifikaId : data_id
+                },
+                success: function (response) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: response.icon,
+                        title: response.title,
+                        showConfirmButton: false,
+                        timer: 10000
+                    });
+
+                    if(response.exist) {
+                        window.location.href = base_url + "/aday/adaySerftifikaListele";
+                    }
+                },
+                dataType: "json"
+            });
+        } else if (result.isDenied) {
+            Swal.fire('Silme işlemi iptal edildi.', '', 'success')
+        }
+    })
+
+});
 
 $("#btnAdayGuncelle").click(function () {
     let url = base_url+ "/aday/adayGuncelle";
